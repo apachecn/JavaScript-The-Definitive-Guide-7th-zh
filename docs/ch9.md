@@ -9,7 +9,7 @@ JavaScript has always allowed the definition of classes. ES6 introduced a brand-
 
 If you’re familiar with strongly typed object-oriented programming languages like Java or C++, you’ll notice that JavaScript classes are quite different from classes in those languages. There are some syntactic similarities, and you can emulate many features of “classical” classes in JavaScript, but it is best to understand up front that JavaScript’s classes and prototype-based inheritance mechanism are substantially different from the classes and class-based inheritance mechanism of Java and similar languages.
 
-9.1 Classes and Prototypes
+## 9.1 Classes and Prototypes
 In JavaScript, a class is a set of objects that inherit properties from the same prototype object. The prototype object, therefore, is the central feature of a class. Chapter 6 covered the Object.create() function that returns a newly created object that inherits from a specified prototype object. If we define a prototype object and then use Object.create() to create objects that inherit from it, we have defined a JavaScript class. Usually, the instances of a class require further initialization, and it is common to define a function that creates and initializes the new object. Example 9-1 demonstrates this: it defines a prototype object for a class that represents a range of values and also defines a factory function that creates and initializes a new instance of the class.
 
 Example 9-1. A simple JavaScript class
@@ -65,7 +65,7 @@ One of the methods in the prototype has the computed name (§6.10.2) Symbol.iter
 
 The shared, inherited methods defined in range.methods all use the from and to properties that were initialized in the range() factory function. In order to refer to them, they use the this keyword to refer to the object through which they were invoked. This use of this is a fundamental characteristic of the methods of any class.
 
-9.2 Classes and Constructors
+## 9.2 Classes and Constructors
 Example 9-1 demonstrates a simple way to define a JavaScript class. It is not the idiomatic way to do so, however, because it did not define a constructor. A constructor is a function designed for the initialization of newly created objects. Constructors are invoked using the new keyword as described in §8.2.3. Constructor invocations using new automatically create the new object, so the constructor itself only needs to initialize the state of that new object. The critical feature of constructor invocations is that the prototype property of the constructor is used as the prototype of the new object. §6.2.3 introduced prototypes and emphasized that while almost all objects have a prototype, only a few objects have a prototype property. Finally, we can clarify this: it is function objects that have a prototype property. This means that all objects created with the same constructor function inherit from the same object and are therefore members of the same class. Example 9-2 shows how we could alter the Range class of Example 9-1 to use a constructor function instead of a factory function. Example 9-2 demonstrates the idiomatic way to create a class in versions of JavaScript that do not support the ES6 class keyword. Even though class is well supported now, there is still lots of older JavaScript code around that defines classes like this, and you should be familiar with the idiom so that you can read old code and so that you understand what is going on “under the hood” when you use the class keyword.
 
 Example 9-2. A Range class using a constructor
@@ -123,7 +123,7 @@ Importantly, note that neither of the two range examples uses arrow functions wh
 
 Fortunately, the new ES6 class syntax doesn’t allow the option of defining methods with arrow functions, so this is not a mistake that you can accidentally make when using that syntax. We will cover the ES6 class keyword soon, but first, there are more details to cover about constructors.
 
-9.2.1 Constructors, Class Identity, and instanceof
+### 9.2.1 Constructors, Class Identity, and instanceof
 As we’ve seen, the prototype object is fundamental to the identity of a class: two objects are instances of the same class if and only if they inherit from the same prototype object. The constructor function that initializes the state of a new object is not fundamental: two constructor functions may have prototype properties that point to the same prototype object. Then, both constructors can be used to create instances of the same class.
 
 Even though constructors are not as fundamental as prototypes, the constructor serves as the public face of a class. Most obviously, the name of the constructor function is usually adopted as the name of the class. We say, for example, that the Range() constructor creates Range objects. More fundamentally, however, constructors are used as the righthand operand of the instanceof operator when testing objects for membership in a class. If we have an object r and want to know if it is a Range object, we can write:
@@ -141,7 +141,7 @@ Even though instanceof cannot actually verify the use of a constructor, it still
 If you want to test the prototype chain of an object for a specific prototype and do not want to use the constructor function as an intermediary, you can use the isPrototypeOf() method. In Example 9-1, for example, we defined a class without a constructor function, so there is no way to use instanceof with that class. Instead, however, we could test whether an object r was a member of that constructor-less class with this code:
 
 range.methods.isPrototypeOf(r);  // range.methods is the prototype object.
-9.2.2 The constructor Property
+### 9.2.2 The constructor Property
 In Example 9-2, we set Range.prototype to a new object that contained the methods for our class. Although it was convenient to express those methods as properties of a single object literal, it was not actually necessary to create a new object. Any regular JavaScript function (excluding arrow functions, generator functions, and async functions) can be used as a constructor, and constructor invocations need a prototype property. Therefore, every regular JavaScript function1 automatically has a prototype property. The value of this property is an object that has a single, non-enumerable constructor property. The value of the constructor property is the function object:
 
 let F = function() {}; // This is a function object.
@@ -173,7 +173,7 @@ Range.prototype.includes = function(x) {
 Range.prototype.toString = function() {
     return "(" + this.from + "..." + this.to + ")";
 };
-9.3 Classes with the class Keyword
+## 9.3 Classes with the class Keyword
 Classes have been part of JavaScript since the very first version of the language, but in ES6, they finally got their own syntax with the introduction of the class keyword. Example 9-3 shows what our Range class looks like when written with this new syntax.
 
 Example 9-3. The Range class rewritten using class
@@ -249,7 +249,7 @@ All code within the body of a class declaration is implicitly in strict mode (§
 
 Unlike function declarations, class declarations are not “hoisted.” Recall from §8.1.1 that function definitions behave as if they had been moved to the top of the enclosing file or enclosing function, meaning that you can invoke a function in code that comes before the actual definition of the function. Although class declarations are like function declarations in some ways, they do not share this hoisting behavior: you cannot instantiate a class before you declare it.
 
-9.3.1 Static Methods
+### 9.3.1 Static Methods
 You can define a static method within a class body by prefixing the method declaration with the static keyword. Static methods are defined as properties of the constructor function rather than properties of the prototype object.
 
 For example, suppose we added the following code to Example 9-3:
@@ -269,7 +269,7 @@ You’ll sometimes see static methods called class methods because they are invo
 
 We’ll see examples of static methods in Example 9-4.
 
-9.3.2 Getters, Setters, and other Method Forms
+### 9.3.2 Getters, Setters, and other Method Forms
 Within a class body, you can define getter and setter methods (§6.10.6) just as you can in object literals. The only difference is that in class bodies, you don’t put a comma after the getter or setter. Example 9-4 includes a practical example of a getter method in a class.
 
 In general, all of the shorthand method definition syntaxes allowed in object literals are also allowed in class bodies. This includes generator methods (marked with *) and methods whose names are the value of an expression in square brackets. In fact, you’ve already seen (in Example 9-3) a generator method with a computed name that makes the Range class iterable:
@@ -277,7 +277,7 @@ In general, all of the shorthand method definition syntaxes allowed in object li
 *[Symbol.iterator]() {
     for(let x = Math.ceil(this.from); x <= this.to; x++) yield x;
 }
-9.3.3 Public, Private, and Static Fields
+### 9.3.3 Public, Private, and Static Fields
 In the discussion here of classes defined with the class keyword, we have only described the definition of methods within the class body. The ES6 standard only allows the creation of methods (including getters, setters, and generators) and static methods; it does not include syntax for defining fields. If you want to define a field (which is just an object-oriented synonym for “property”) on a class instance, you must do that in the constructor function or in one of the methods. And if you want to define a static field for a class, you must do that outside the class body, after the class has been defined. Example 9-4 includes examples of both kinds of fields.
 
 Standardization is underway, however, for extended class syntax that allows the definition of instance and static fields, in both public and private forms. The code shown in the rest of this section is not yet standard JavaScript as of early 2020 but is already supported in Chrome and partially supported (public instance fields only) in Firefox. The syntax for public instance fields is in common use by JavaScript programmers using the React framework and the Babel transpiler.
@@ -322,7 +322,7 @@ static parse(s) {
 }
 If we wanted this static field to be accessible only within the class, we could make it private using a name like #pattern.
 
-9.3.4 Example: A Complex Number Class
+### 9.3.4 Example: A Complex Number Class
 Example 9-4 defines a class to represent complex numbers. The class is a relatively simple one, but it includes instance methods (including getters), static methods, instance fields, and static fields. It includes some commented-out code demonstrating how we might use the not-yet-standard syntax for defining instance fields and static fields within the class body.
 
 Example 9-4. Complex.js: a complex number class
@@ -398,7 +398,7 @@ c.plus(d).toString()           // => "{5,5}"; use instance methods
 c.magnitude                    // => Math.hypot(2,3); use a getter function
 Complex.product(c, d)          // => new Complex(0, 13); a static method
 Complex.ZERO.toString()        // => "{0,0}"; a static property
-9.4 Adding Methods to Existing Classes
+## 9.4 Adding Methods to Existing Classes
 JavaScript’s prototype-based inheritance mechanism is dynamic: an object inherits properties from its prototype, even if the properties of the prototype change after the object is created. This means that we can augment JavaScript classes simply by adding new methods to their prototype objects.
 
 Here, for example, is code that adds a method for computing the complex conjugate to the Complex class of Example 9-4:
@@ -426,12 +426,12 @@ Number.prototype.times = function(f, context) {
 };
 Adding methods to the prototypes of built-in types like this is generally considered to be a bad idea because it will cause confusion and compatibility problems in the future if a new version of JavaScript defines a method with the same name. It is even possible to add methods to Object.prototype, making them available for all objects. But this is never a good thing to do because properties added to Object.prototype are visible to for/in loops (though you can avoid this by using Object.defineProperty() [§14.1] to make the new property non-enumerable).
 
-9.5 Subclasses
+## 9.5 Subclasses
 In object-oriented programming, a class B can extend or subclass another class A. We say that A is the superclass and B is the subclass. Instances of B inherit the methods of A. The class B can define its own methods, some of which may override methods of the same name defined by class A. If a method of B overrides a method of A, the overriding method in B often needs to invoke the overridden method in A. Similarly, the subclass constructor B() must typically invoke the superclass constructor A() in order to ensure that instances are completely initialized.
 
 This section starts by showing how to define subclasses the old, pre-ES6 way, and then quickly moves on to demonstrate subclassing using the class and extends keywords and superclass constructor method invocation with the super keyword. Next is a subsection about avoiding subclasses and relying on object composition instead of inheritance. The section ends with an extended example that defines a hierarchy of Set classes and demonstrates how abstract classes can be used to separate interface from implementation.
 
-9.5.1 Subclasses and Prototypes
+### 9.5.1 Subclasses and Prototypes
 Suppose we wanted to define a Span subclass of the Range class from Example 9-2. This subclass will work just like a Range, but instead of initializing it with a start and an end, we’ll instead specify a start and a distance, or span. An instance of this Span class is also an instance of the Range superclass. A span instance inherits a customized toString() method from Span.prototype, but in order to be a subclass of Range, it must also inherit methods (such as includes()) from Range.prototype.
 
 Example 9-5. Span.js: a simple subclass of Range
@@ -467,7 +467,7 @@ You may notice that our Span() constructor sets the same from and to properties 
 
 Fortunately, ES6 solves these problems with the super keyword as part of the class syntax. The next section demonstrates how it works.
 
-9.5.2 Subclasses with extends and super
+### 9.5.2 Subclasses with extends and super
 In ES6 and later, you can create a superclass simply by adding an extends clause to a class declaration, and you can do this even for built-in classes:
 
 // A trivial Array subclass that adds getters for the first and last elements.
@@ -555,7 +555,7 @@ In constructors, you are required to invoke the superclass constructor before yo
 
 Finally, before we leave the TypedMap example behind, it is worth noting that this class is an ideal candidate for the use of private fields. As the class is written now, a user could change the keyType or valueType properties to subvert the type checking. Once private fields are supported, we could change these properties to #keyType and #valueType so that they could not be altered from the outside.
 
-9.5.3 Delegation Instead of Inheritance
+### 9.5.3 Delegation Instead of Inheritance
 The extends keyword makes it easy to create subclasses. But that does not mean that you should create lots of subclasses. If you want to write a class that shares the behavior of some other class, you can try to inherit that behavior by creating a subclass. But it is often easier and more flexible to get that desired behavior into your class by having your class create an instance of the other class and simply delegating to that instance as needed. You create a new class not by subclassing, but instead by wrapping or “composing” other classes. This delegation approach is often called “composition,” and it is an oft-quoted maxim of object-oriented programming that one should “favor composition over inheritance.”2
 
 Suppose, for example, we wanted a Histogram class that behaves something like JavaScript’s Set class, except that instead of just keeping track of whether a value has been added to set or not, it instead maintains a count of the number of times the value has been added. Because the API for this Histogram class is similar to Set, we might consider subclassing Set and adding a count() method. On the other hand, once we start thinking about how we might implement this count() method, we might realize that the Histogram class is more like a Map than a Set because it needs to maintain a mapping between values and the number of times they have been added. So instead of subclassing Set, we can create a class that defines a Set-like API but implements those methods by delegating to an internal Map object. Example 9-7 shows how we could do this.
@@ -606,7 +606,7 @@ class Histogram {
 }
 All the Histogram() constructor does in Example 9-7 is create a Map object. And most of the methods are one-liners that just delegate to a method of the map, making the implementation quite simple. Because we used delegation rather than inheritance, a Histogram object is not an instance of Set or Map. But Histogram implements a number of commonly used Set methods, and in an untyped language like JavaScript, that is often good enough: a formal inheritance relationship is sometimes nice, but often optional.
 
-9.5.4 Class Hierarchies and Abstract Classes
+### 9.5.4 Class Hierarchies and Abstract Classes
 Example 9-6 demonstrated how we can subclass Map. Example 9-7 demonstrated how we can instead delegate to a Map object without actually subclassing anything. Using JavaScript classes to encapsulate data and modularize your code is often a great technique, and you may find yourself using the class keyword frequently. But you may find that you prefer composition to inheritance and that you rarely need to use extends (except when you’re using a library or framework that requires you to extend its base classes).
 
 There are some circumstances when multiple levels of subclassing are appropriate, however, and we’ll end this chapter with an extended example that demonstrates a hierarchy of classes representing different kinds of sets. (The set classes defined in Example 9-8 are similar to, but not completely compatible with, JavaScript’s built-in Set class.)
@@ -819,7 +819,7 @@ class BitSet extends AbstractWritableSet {
 // Some pre-computed values used by the has(), insert() and remove() methods
 BitSet.bits = new Uint8Array([1, 2, 4, 8, 16, 32, 64, 128]);
 BitSet.masks = new Uint8Array([~1, ~2, ~4, ~8, ~16, ~32, ~64, ~128]);
-9.6 Summary
+## 9.6 Summary
 This chapter has explained the key features of JavaScript classes:
 
 Objects that are members of the same class inherit properties from the same prototype object. The prototype object is the key feature of JavaScript classes, and it is possible to define classes with nothing more than the Object.create() method.

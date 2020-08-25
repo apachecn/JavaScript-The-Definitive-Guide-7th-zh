@@ -9,14 +9,14 @@ In JavaScript, functions are objects, and they can be manipulated by programs. J
 
 JavaScript function definitions can be nested within other functions, and they have access to any variables that are in scope where they are defined. This means that JavaScript functions are closures, and it enables important and powerful programming techniques.
 
-8.1 Defining Functions
+## 8.1 Defining Functions
 The most straightforward way to define a JavaScript function is with the function keyword, which can be used as a declaration or as an expression. ES6 defines an important new way to define functions without the function keyword: “arrow functions” have a particularly compact syntax and are useful when passing one function as an argument to another function. The subsections that follow cover these three ways of defining functions. Note that some details of function definition syntax involving function parameters are deferred to §8.3.
 
 In object literals and class definitions, there is a convenient shorthand syntax for defining methods. This shorthand syntax was covered in §6.10.5 and is equivalent to using a function definition expression and assigning it to an object property using the basic name:value object literal syntax. In another special case, you can use keywords get and set in object literals to define special property getter and setter methods. This function definition syntax was covered in §6.10.6.
 
 Note that functions can also be defined with the Function() constructor, which is the subject of §8.7.7. Also, JavaScript defines some specialized kinds of functions. function* defines generator functions (see Chapter 12) and async function defines asynchronous functions (see Chapter 13).
 
-8.1.1 Function Declarations
+### 8.1.1 Function Declarations
 Function declarations consist of the function keyword, followed by these components:
 
 An identifier that names the function. The name is a required part of function declarations: it is used as the name of a variable, and the newly defined function object is assigned to the variable.
@@ -55,7 +55,7 @@ The printprops() function is different: its job is to output the names and value
 
 Prior to ES6, function declarations were only allowed at the top level within a JavaScript file or within another function. While some implementations bent the rule, it was not technically legal to define functions inside the body of loops, conditionals, or other blocks. In the strict mode of ES6, however, function declarations are allowed within blocks. A function defined within a block only exists within that block, however, and is not visible outside the block.
 
-8.1.2 Function Expressions
+### 8.1.2 Function Expressions
 Function expressions look a lot like function declarations, but they appear within the context of a larger expression or statement, and the name is optional. Here are some example function expressions:
 
 // This function expression defines a function that squares its argument.
@@ -76,7 +76,7 @@ A name is allowed for functions, like the factorial function, that need to refer
 
 There is an important difference between defining a function f() with a function declaration and assigning a function to the variable f after creating it as an expression. When you use the declaration form, the function objects are created before the code that contains them starts to run, and the definitions are hoisted so that you can call these functions from code that appears above the definition statement. This is not true for functions defined as expressions, however: these functions do not exist until the expression that defines them are actually evaluated. Furthermore, in order to invoke a function, you must be able to refer to it, and you can’t refer to a function defined as an expression until it is assigned to a variable, so functions defined with expressions cannot be invoked before they are defined.
 
-8.1.3 Arrow Functions
+### 8.1.3 Arrow Functions
 In ES6, you can define functions using a particularly compact syntax known as “arrow functions.” This syntax is reminiscent of mathematical notation and uses an => “arrow” to separate the function parameters from the function body. The function keyword is not used, and, since arrow functions are expressions instead of statements, there is no need for a function name, either. The general form of an arrow function is a comma-separated list of parameters in parentheses, followed by the => arrow, followed by the function body in curly braces:
 
 const sum = (x, y) => { return x + y; };
@@ -107,7 +107,7 @@ let filtered = [1,null,2,3].filter(x => x !== null); // filtered == [1,2,3]
 let squares = [1,2,3,4].map(x => x*x);               // squares == [1,4,9,16]
 Arrow functions differ from functions defined in other ways in one critical way: they inherit the value of the this keyword from the environment in which they are defined rather than defining their own invocation context as functions defined in other ways do. This is an important and very useful feature of arrow functions, and we’ll return to it again later in this chapter. Arrow functions also differ from other functions in that they do not have a prototype property, which means that they cannot be used as constructor functions for new classes (see §9.2).
 
-8.1.4 Nested Functions
+### 8.1.4 Nested Functions
 In JavaScript, functions may be nested within other functions. For example:
 
 function hypotenuse(a, b) {
@@ -116,7 +116,7 @@ function hypotenuse(a, b) {
 }
 The interesting thing about nested functions is their variable scoping rules: they can access the parameters and variables of the function (or functions) they are nested within. In the code shown here, for example, the inner function square() can read and write the parameters a and b defined by the outer function hypotenuse(). These scope rules for nested functions are very important, and we will consider them again in §8.6.
 
-8.2 Invoking Functions
+## 8.2 Invoking Functions
 The JavaScript code that makes up the body of a function is not executed when the function is defined, but rather when it is invoked. JavaScript functions can be invoked in five ways:
 
 As functions
@@ -129,7 +129,7 @@ Indirectly through their call() and apply() methods
 
 Implicitly, via JavaScript language features that do not appear like normal function invocations
 
-8.2.1 Function Invocation
+### 8.2.1 Function Invocation
 Functions are invoked as functions or as methods with an invocation expression (§4.5). An invocation expression consists of a function expression that evaluates to a function object followed by an open parenthesis, a comma-separated list of zero or more argument expressions, and a close parenthesis. If the function expression is a property-access expression—if the function is the property of an object or an element of an array—then it is a method invocation expression. That case will be explained in the following example. The following code includes a number of regular function invocation expressions:
 
 printprops({x: 1});
@@ -154,7 +154,7 @@ const strict = (function() { return !this; }());
 RECURSIVE FUNCTIONS AND THE STACK
 A recursive function is one, like the factorial() function at the start of this chapter, that calls itself. Some algorithms, such as those involving tree-based data structures, can be implemented particularly elegantly with recursive functions. When writing a recursive function, however, it is important to think about memory constraints. When a function A calls function B, and then function B calls function C, the JavaScript interpreter needs to keep track of the execution contexts for all three functions. When function C completes, the interpreter needs to know where to resume executing function B, and when function B completes, it needs to know where to resume executing function A. You can imagine these execution contexts as a stack. When a function calls another function, a new execution context is pushed onto the stack. When that function returns, its execution context object is popped off the stack. If a function calls itself recursively 100 times, the stack will have 100 objects pushed onto it, and then have those 100 objects popped off. This call stack takes memory. On modern hardware, it is typically fine to write recursive functions that call themselves hundreds of times. But if a function calls itself ten thousand times, it is likely to fail with an error such as “Maximum call-stack size exceeded.”
 
-8.2.2 Method Invocation
+### 8.2.2 Method Invocation
 A method is nothing more than a JavaScript function that is stored in a property of an object. If you have a function f and an object o, you can define a method named m of o with the following line:
 
 o.m = f;
@@ -233,7 +233,7 @@ const f = (function() {
 }).bind(this);
 We’ll talk more about bind() in §8.7.5.
 
-8.2.3 Constructor Invocation
+### 8.2.3 Constructor Invocation
 If a function or method invocation is preceded by the keyword new, then it is a constructor invocation. (Constructor invocations were introduced in §4.6 and §6.2.2, and constructors will be covered in more detail in Chapter 9.) Constructor invocations differ from regular function and method invocations in their handling of arguments, invocation context, and return value.
 
 If a constructor invocation includes an argument list in parentheses, those argument expressions are evaluated and passed to the function in the same way they would be for function and method invocations. It is not common practice, but you can omit a pair of empty parentheses in a constructor invocation. The following two lines, for example, are equivalent:
@@ -244,10 +244,10 @@ A constructor invocation creates a new, empty object that inherits from the obje
 
 Constructor functions do not normally use the return keyword. They typically initialize the new object and then return implicitly when they reach the end of their body. In this case, the new object is the value of the constructor invocation expression. If, however, a constructor explicitly uses the return statement to return an object, then that object becomes the value of the invocation expression. If the constructor uses return with no value, or if it returns a primitive value, that return value is ignored and the new object is used as the value of the invocation.
 
-8.2.4 Indirect Invocation
+### 8.2.4 Indirect Invocation
 JavaScript functions are objects, and like all JavaScript objects, they have methods. Two of these methods, call() and apply(), invoke the function indirectly. Both methods allow you to explicitly specify the this value for the invocation, which means you can invoke any function as a method of any object, even if it is not actually a method of that object. Both methods also allow you to specify the arguments for the invocation. The call() method uses its own argument list as arguments to the function, and the apply() method expects an array of values to be used as arguments. The call() and apply() methods are described in detail in §8.7.4.
 
-8.2.5 Implicit Function Invocation
+### 8.2.5 Implicit Function Invocation
 There are various JavaScript language features that do not look like function invocations but that cause functions to be invoked. Be extra careful when writing functions that may be implicitly invoked, because bugs, side effects, and performance issues in these functions are harder to diagnose and fix than in regular functions for the simple reason that it may not be obvious from a simple inspection of your code when they are being called.
 
 The language features that can cause implicit function invocation include:
@@ -262,10 +262,10 @@ A tagged template literal is a function invocation in disguise. §14.5 demonstra
 
 Proxy objects (described in §14.7) have their behavior completely controlled by functions. Just about any operation on one of these objects will cause a function to be invoked.
 
-8.3 Function Arguments and Parameters
+## 8.3 Function Arguments and Parameters
 JavaScript function definitions do not specify an expected type for the function parameters, and function invocations do not do any type checking on the argument values you pass. In fact, JavaScript function invocations do not even check the number of arguments being passed. The subsections that follow describe what happens when a function is invoked with fewer arguments than declared parameters or with more arguments than declared parameters. They also demonstrate how you can explicitly test the type of function arguments if you need to ensure that a function is not invoked with inappropriate arguments.
 
-8.3.1 Optional Parameters and Defaults
+### 8.3.1 Optional Parameters and Defaults
 When a function is invoked with fewer arguments than declared parameters, the additional parameters are set to their default value, which is normally undefined. It is often useful to write functions so that some arguments are optional. Following is an example:
 
 // Append the names of the enumerable properties of object o to the
@@ -303,7 +303,7 @@ const rectangle = (width, height=width*2) => ({width, height});
 rectangle(1)  // => { width: 1, height: 2 }
 This code demonstrates that parameter defaults work with arrow functions. The same is true for method shorthand functions and all other forms of function definitions.
 
-8.3.2 Rest Parameters and Variable-Length Argument Lists
+### 8.3.2 Rest Parameters and Variable-Length Argument Lists
 Parameter defaults enable us to write functions that can be invoked with fewer arguments than parameters. Rest parameters enable the opposite case: they allow us to write functions that can be invoked with arbitrarily more arguments than parameters. Here is an example function that expects one or more numeric arguments and returns the largest one:
 
 function max(first=-Infinity, ...rest) {
@@ -325,7 +325,7 @@ Functions like the previous example that can accept any number of arguments are 
 
 Don’t confuse the ... that defines a rest parameter in a function definition with the ... spread operator, described in §8.3.4, which can be used in function invocations.
 
-8.3.3 The Arguments Object
+### 8.3.3 The Arguments Object
 Rest parameters were introduced into JavaScript in ES6. Before that version of the language, varargs functions were written using the Arguments object: within the body of any function, the identifier arguments refers to the Arguments object for that invocation. The Arguments object is an array-like object (see §7.9) that allows the argument values passed to the function to be retrieved by number, rather than by name. Here is the max() function from earlier, rewritten to use the Arguments object instead of a rest parameter:
 
 function max(x) {
@@ -341,7 +341,7 @@ function max(x) {
 max(1, 10, 100, 2, 3, 1000, 4, 5, 6)  // => 1000
 The Arguments object dates back to the earliest days of JavaScript and carries with it some strange historical baggage that makes it inefficient and hard to optimize, especially outside of strict mode. You may still encounter code that uses the Arguments object, but you should avoid using it in any new code you write. When refactoring old code, if you encounter a function that uses arguments, you can often replace it with a ...args rest parameter. Part of the unfortunate legacy of the Arguments object is that, in strict mode, arguments is treated as a reserved word, and you cannot declare a function parameter or a local variable with that name.
 
-8.3.4 The Spread Operator for Function Calls
+### 8.3.4 The Spread Operator for Function Calls
 The spread operator ... is used to unpack, or “spread out,” the elements of an array (or any other iterable object, such as strings) in a context where individual values are expected. We’ve seen the spread operator used with array literals in §7.1.2. The operator can be used, in the same way, in function invocations:
 
 let numbers = [5, 2, 10, -1, 9, 100, 1];
@@ -375,7 +375,7 @@ function benchmark(n) {
 
 // Now invoke the timed version of that test function
 timed(benchmark)(1000000) // => 500000500000; this is the sum of the numbers
-8.3.5 Destructuring Function Arguments into Parameters
+### 8.3.5 Destructuring Function Arguments into Parameters
 When you invoke a function with a list of argument values, those values end up being assigned to the parameters declared in the function definition. This initial phase of function invocation is a lot like variable assignment. So it should not be surprising that we can use the techniques of destructuring assignment (see §3.10.3) with functions.
 
 If you define a function that has parameter names within square brackets, you are telling the function to expect an array value to be passed for each pair of square brackets. As part of the invocation process, the array arguments will be unpacked into the individually named parameters. As an example, suppose we are representing 2D vectors as arrays of two numbers, where the first element is the X coordinate and the second element is the Y coordinate. With this simple data structure, we could write the following function to add two vectors:
@@ -449,7 +449,7 @@ function drawCircle({x, y, radius, color: [r, g, b]}) {
 }
 If function argument destructuring is any more complicated than this, I find that the code becomes harder to read, rather than simpler. Sometimes, it is clearer to be explicit about your object property access and array indexing.
 
-8.3.6 Argument Types
+### 8.3.6 Argument Types
 JavaScript method parameters have no declared types, and no type checking is performed on the values you pass to a function. You can help make your code self-documenting by choosing descriptive names for function arguments and by documenting them carefully in the comments for each function. (Alternatively, see §17.8 for a language extension that allows you to layer type checking on top of regular JavaScript.)
 
 As described in §3.9, JavaScript performs liberal type conversion as needed. So if you write a function that expects a string argument and then call that function with a value of some other type, the value you passed will simply be converted to a string when the function tries to use it as a string. All primitive types can be converted to strings, and all objects have toString() methods (if not necessarily useful ones), so an error never occurs in this case.
@@ -471,7 +471,7 @@ function sum(a) {
 sum([1,2,3])    // => 6
 sum(1, 2, 3);   // !TypeError: 1 is not iterable
 sum([1,2,"3"]); // !TypeError: element 2 is not a number
-8.4 Functions as Values
+## 8.4 Functions as Values
 The most important features of functions are that they can be defined and invoked. Function definition and invocation are syntactic features of JavaScript and of most other programming languages. In JavaScript, however, functions are not only syntax but also values, which means they can be assigned to variables, stored in the properties of objects or the elements of arrays, passed as arguments to functions, and so on.3
 
 To understand how functions can be JavaScript data as well as JavaScript syntax, consider this function definition:
@@ -534,7 +534,7 @@ function operate2(operation, operand1, operand2) {
 
 operate2("add", "hello", operate2("add", " ", "world")) // => "hello world"
 operate2("pow", 10, 2)  // => 100
-8.4.1 Defining Your Own Function Properties
+### 8.4.1 Defining Your Own Function Properties
 Functions are not primitive values in JavaScript, but a specialized kind of object, which means that functions can have properties. When a function needs a “static” variable whose value persists across invocations, it is often convenient to use a property of the function itself. For example, suppose you want to write a function that returns a unique integer whenever it is invoked. The function must never return the same value twice. In order to manage this, the function needs to keep track of the values it has already returned, and this information must persist across function invocations. You could store this information in a global variable, but that is unnecessary, because the information is used only by the function itself. It is better to store the information in a property of the Function object. Here is an example that returns a unique integer whenever it is called:
 
 // Initialize the counter property of the function object.
@@ -565,7 +565,7 @@ function factorial(n) {
 factorial[1] = 1;  // Initialize the cache to hold this base case.
 factorial(6)  // => 720
 factorial[5]  // => 120; the call above caches this value
-8.5 Functions as Namespaces
+## 8.5 Functions as Namespaces
 Variables declared within a function are not visible outside of the function. For this reason, it is sometimes useful to define a function simply to act as a temporary namespace in which you can define variables without cluttering the global namespace.
 
 Suppose, for example, you have a chunk of JavaScript code that you want to use in a number of different JavaScript programs (or, for client-side JavaScript, on a number of different web pages). Assume that this code, like most code, defines variables to store the intermediate results of its computation. The problem is that since this chunk of code will be used in many different programs, you don’t know whether the variables it creates will conflict with variables created by the programs that use it. The solution is to put the chunk of code into a function and then invoke the function. This way, variables that would have been global become local to the function:
@@ -585,7 +585,7 @@ This technique of defining and invoking a function in a single expression is use
 
 This use of functions as namespaces becomes really useful when we define one or more functions inside the namespace function using variables within that namesapce, but then pass them back out as the return value of the namespace function. Functions like this are known as closures, and they’re the topic of the next section.
 
-8.6 Closures
+## 8.6 Closures
 Like most modern programming languages, JavaScript uses lexical scoping. This means that functions are executed using the variable scope that was in effect when they were defined, not the variable scope that is in effect when they are invoked. In order to implement lexical scoping, the internal state of a JavaScript function object must include not only the code of the function but also a reference to the scope in which the function definition appears. This combination of a function object and a scope (a set of variable bindings) in which the function’s variables are resolved is called a closure in the computer science literature.
 
 Technically, all JavaScript functions are closures, but because most functions are invoked from the same scope that they were defined in, it normally doesn’t really matter that there is a closure involved. Closures become interesting when they are invoked from a different scope than the one they were defined in. This happens most commonly when a nested function object is returned from the function within which it was defined. There are a number of powerful programming techniques that involve this kind of nested function closures, and their use has become relatively common in JavaScript programming. Closures may seem confusing when you first encounter them, but it is important that you understand them well enough to use them comfortably.
@@ -734,19 +734,19 @@ This code creates 10 closures and stores them in an array. The closures are all 
 Another thing to remember when writing closures is that this is a JavaScript keyword, not a variable. As discussed earlier, arrow functions inherit the this value of the function that contains them, but functions defined with the function keyword do not. So if you’re writing a closure that needs to use the this value of its containing function, you should use an arrow function, or call bind(), on the closure before returning it, or assign the outer this value to a variable that your closure will inherit:
 
 const self = this;  // Make the this value available to nested functions
-8.7 Function Properties, Methods, and Constructor
+## 8.7 Function Properties, Methods, and Constructor
 We’ve seen that functions are values in JavaScript programs. The typeof operator returns the string “function” when applied to a function, but functions are really a specialized kind of JavaScript object. Since functions are objects, they can have properties and methods, just like any other object. There is even a Function() constructor to create new function objects. The subsections that follow document the length, name, and prototype properties; the call(), apply(), bind(), and toString() methods; and the Function() constructor.
 
-8.7.1 The length Property
+### 8.7.1 The length Property
 The read-only length property of a function specifies the arity of the function—the number of parameters it declares in its parameter list, which is usually the number of arguments that the function expects. If a function has a rest parameter, that parameter is not counted for the purposes of this length property.
 
-8.7.2 The name Property
+### 8.7.2 The name Property
 The read-only name property of a function specifies the name that was used when the function was defined, if it was defined with a name, or the name of the variable or property that an unnamed function expression was assigned to when it was first created. This property is primarily useful when writing debugging or error messages.
 
-8.7.3 The prototype Property
+### 8.7.3 The prototype Property
 All functions, except arrow functions, have a prototype property that refers to an object known as the prototype object. Every function has a different prototype object. When a function is used as a constructor, the newly created object inherits properties from the prototype object. Prototypes and the prototype property were discussed in §6.2.3 and will be covered again in Chapter 9.
 
-8.7.4 The call() and apply() Methods
+### 8.7.4 The call() and apply() Methods
 call() and apply() allow you to indirectly invoke (§8.2.4) a function as if it were a method of some other object. The first argument to both call() and apply() is the object on which the function is to be invoked; this argument is the invocation context and becomes the value of the this keyword within the body of the function. To invoke the function f() as a method of the object o (passing no arguments), you could use either call() or apply():
 
 f.call(o);
@@ -780,7 +780,7 @@ function trace(o, m) {
         return result;                                // Return result.
     };
 }
-8.7.5 The bind() Method
+### 8.7.5 The bind() Method
 The primary purpose of bind() is to bind a function to an object. When you invoke the bind() method on a function f and pass an object o, the method returns a new function. Invoking the new function (as a function) invokes the original function f as a method of o. Any arguments you pass to the new function are passed to the original function. For example:
 
 function f(y) { return this.x + y; } // This function needs to be bound
@@ -802,10 +802,10 @@ let g = f.bind({x: 1}, 2);     // Bind this and y
 g(3)     // => 6: this.x is bound to 1, y is bound to 2 and z is 3
 The name property of the function returned by bind() is the name property of the function that bind() was called on, prefixed with the word “bound”.
 
-8.7.6 The toString() Method
+### 8.7.6 The toString() Method
 Like all JavaScript objects, functions have a toString() method. The ECMAScript spec requires this method to return a string that follows the syntax of the function declaration statement. In practice, most (but not all) implementations of this toString() method return the complete source code for the function. Built-in functions typically return a string that includes something like “[native code]” as the function body.
 
-8.7.7 The Function() Constructor
+### 8.7.7 The Function() Constructor
 Because functions are objects, there is a Function() constructor that can be used to create new functions:
 
 const f = new Function("x", "y", "return x*y;");
@@ -834,10 +834,10 @@ function constructFunction() {
 constructFunction()()  // => "global"
 The Function() constructor is best thought of as a globally scoped version of eval() (see §4.12.2) that defines new variables and functions in its own private scope. You will probably never need to use this constructor in your code.
 
-8.8 Functional Programming
+## 8.8 Functional Programming
 JavaScript is not a functional programming language like Lisp or Haskell, but the fact that JavaScript can manipulate functions as objects means that we can use functional programming techniques in JavaScript. Array methods such as map() and reduce() lend themselves particularly well to a functional programming style. The sections that follow demonstrate techniques for functional programming in JavaScript. They are intended as a mind-expanding exploration of the power of JavaScript’s functions, not as a prescription for good programming style.
 
-8.8.1 Processing Arrays with Functions
+### 8.8.1 Processing Arrays with Functions
 Suppose we have an array of numbers and we want to compute the mean and standard deviation of those values. We might do that in nonfunctional style like this:
 
 let data = [1,1,3,5,5];  // This is our array of numbers
@@ -881,7 +881,7 @@ let mean = reduce(data, sum)/data.length;
 let deviations = map(data, x => x-mean);
 let stddev = Math.sqrt(reduce(map(deviations, square), sum)/(data.length-1));
 stddev  // => 2
-8.8.2 Higher-Order Functions
+### 8.8.2 Higher-Order Functions
 A higher-order function is a function that operates on functions, taking one or more functions as arguments and returning a new function. Here is an example:
 
 // This higher-order function returns a new function that passes its
@@ -927,7 +927,7 @@ const square = x => x*x;
 compose(square, sum)(2,3)  // => 25; the square of the sum
 The partial() and memoize() functions defined in the sections that follow are two more important higher-order functions.
 
-8.8.3 Partial Application of Functions
+### 8.8.3 Partial Application of Functions
 The bind() method of a function f (see §8.7.5) returns a new function that invokes f in a specified context and with a specified set of arguments. We say that it binds the function to an object and partially applies the arguments. The bind() method partially applies arguments on the left—that is, the arguments you pass to bind() are placed at the start of the argument list that is passed to the original function. But it is also possible to partially apply arguments on the right:
 
 // The arguments to this function are passed on the left
@@ -999,7 +999,7 @@ let stddev = sqrt(product(reduce(map(data,
 [mean, stddev]  // => [3, 2]
 Notice that this code to compute mean and standard deviation is entirely function invocations; there are no operators involved, and the number of parentheses has grown so large that this JavaScript is beginning to look like Lisp code. Again, this is not a style that I advocate for JavaScript programming, but it is an interesting exercise to see how deeply functional JavaScript code can be.
 
-8.8.4 Memoization
+### 8.8.4 Memoization
 In §8.4.1, we defined a factorial function that cached its previously computed results. In functional programming, this kind of caching is called memoization. The code that follows shows a higher-order function, memoize(), that accepts a function as its argument and returns a memoized version of the function:
 
 // Return a memoized version of f.
@@ -1042,7 +1042,7 @@ const factorial = memoize(function(n) {
     return (n <= 1) ? 1 : n * factorial(n-1);
 });
 factorial(5)      // => 120: also caches values for 4, 3, 2 and 1.
-8.9 Summary
+## 8.9 Summary
 Some key points to remember about this chapter are as follows:
 
 You can define functions with the function keyword and with the ES6 => arrow syntax.

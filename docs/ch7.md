@@ -7,7 +7,7 @@ Arrays inherit properties from Array.prototype, which defines a rich set of arra
 
 ES6 introduces a set of new array classes known collectively as “typed arrays.” Unlike regular JavaScript arrays, typed arrays have a fixed length and a fixed numeric element type. They offer high performance and byte-level access to binary data and are covered in §11.2.
 
-7.1 Creating Arrays
+## 7.1 Creating Arrays
 There are several ways to create arrays. The subsections that follow explain how to create arrays with:
 
 Array literals
@@ -18,7 +18,7 @@ The Array() constructor
 
 The Array.of() and Array.from() factory methods
 
-7.1.1 Array Literals
+### 7.1.1 Array Literals
 By far the simplest way to create an array is with an array literal, which is simply a comma-separated list of array elements within square brackets. For example:
 
 let empty = [];                 // An array with no elements
@@ -37,7 +37,7 @@ let count = [1,,3]; // Elements at indexes 0 and 2. No element at index 1
 let undefs = [,,];  // An array with no elements but a length of 2
 Array literal syntax allows an optional trailing comma, so [,,] has a length of 2, not 3.
 
-7.1.2 The Spread Operator
+### 7.1.2 The Spread Operator
 In ES6 and later, you can use the “spread operator,” ..., to include the elements of one array within an array literal:
 
 let a = [1, 2, 3];
@@ -58,7 +58,7 @@ Set objects (§11.1.1) are iterable, so an easy way to remove duplicate elements
 
 let letters = [..."hello world"];
 [...new Set(letters)]  // => ["h","e","l","o"," ","w","r","d"]
-7.1.3 The Array() Constructor
+### 7.1.3 The Array() Constructor
 Another way to create an array is with the Array() constructor. You can invoke this constructor in three distinct ways:
 
 Call it with no arguments:
@@ -76,7 +76,7 @@ Explicitly specify two or more array elements or a single non-numeric element fo
 let a = new Array(5, 4, 3, 2, 1, "testing, testing");
 In this form, the constructor arguments become the elements of the new array. Using an array literal is almost always simpler than this usage of the Array() constructor.
 
-7.1.4 Array.of()
+### 7.1.4 Array.of()
 When the Array() constructor function is invoked with one numeric argument, it uses that argument as an array length. But when invoked with more than one numeric argument, it treats those arguments as elements for the array to be created. This means that the Array() constructor cannot be used to create an array with a single numeric element.
 
 In ES6, the Array.of() function addresses this problem: it is a factory method that creates and returns a new array, using its argument values (regardless of how many of them there are) as the array elements:
@@ -84,7 +84,7 @@ In ES6, the Array.of() function addresses this problem: it is a factory method t
 Array.of()        // => []; returns empty array with no arguments
 Array.of(10)      // => [10]; can create arrays with a single numeric argument
 Array.of(1,2,3)   // => [1, 2, 3]
-7.1.5 Array.from()
+### 7.1.5 Array.from()
 Array.from is another array factory method introduced in ES6. It expects an iterable or array-like object as its first argument and returns a new array that contains the elements of that object. With an iterable argument, Array.from(iterable) works like the spread operator [...iterable] does. It is also a simple way to make a copy of an array:
 
 let copy = Array.from(original);
@@ -93,7 +93,7 @@ Array.from() is also important because it defines a way to make a true-array cop
 let truearray = Array.from(arraylike);
 Array.from() also accepts an optional second argument. If you pass a function as the second argument, then as the new array is being built, each element from the source object will be passed to the function you specify, and the return value of the function will be stored in the array instead of the original value. (This is very much like the array map() method that will be introduced later in the chapter, but it is more efficient to perform the mapping while the array is being built than it is to build the array and then map it to another new array.)
 
-7.2 Reading and Writing Array Elements
+## 7.2 Reading and Writing Array Elements
 You access an element of an array using the [] operator. A reference to the array should appear to the left of the brackets. An arbitrary expression that has a non-negative integer value should be inside the brackets. You can use this syntax to both read and write the value of an element of an array. Thus, the following are all legal JavaScript statements:
 
 let a = ["world"];     // Start with a one-element array
@@ -123,7 +123,7 @@ The fact that array indexes are simply a special type of object property name me
 let a = [true, false]; // This array has elements at indexes 0 and 1
 a[2]                   // => undefined; no element at this index.
 a[-1]                  // => undefined; no property with this name.
-7.3 Sparse Arrays
+## 7.3 Sparse Arrays
 A sparse array is one in which the elements do not have contiguous indexes starting at 0. Normally, the length property of an array specifies the number of elements in the array. If the array is sparse, the value of the length property is greater than the number of elements. Sparse arrays can be created with the Array() constructor or simply by assigning to an array index larger than the current array length.
 
 let a = new Array(5); // No elements, but a.length is 5.
@@ -141,7 +141,7 @@ let a2 = [undefined];   // This array has one undefined element
 0 in a2                 // => true: a2 has the undefined value at index 0
 Understanding sparse arrays is an important part of understanding the true nature of JavaScript arrays. In practice, however, most JavaScript arrays you will work with will not be sparse. And, if you do have to work with a sparse array, your code will probably treat it just as it would treat a nonsparse array with undefined elements.
 
-7.4 Array Length
+## 7.4 Array Length
 Every array has a length property, and it is this property that makes arrays different from regular JavaScript objects. For arrays that are dense (i.e., not sparse), the length property specifies the number of elements in the array. Its value is one more than the highest index in the array:
 
 [].length             // => 0: the array has no elements
@@ -156,7 +156,7 @@ a.length = 0;        // Delete all elements.  a is [].
 a.length = 5;        // Length is 5, but no elements, like new Array(5)
 You can also set the length property of an array to a value larger than its current value. Doing this does not actually add any new elements to the array; it simply creates a sparse area at the end of the array.
 
-7.5 Adding and Deleting Array Elements
+## 7.5 Adding and Deleting Array Elements
 We’ve already seen the simplest way to add elements to an array: just assign values to new indexes:
 
 let a = [];      // Start with an empty array.
@@ -181,7 +181,7 @@ As we saw above, you can also remove elements from the end of an array simply by
 
 Finally, splice() is the general-purpose method for inserting, deleting, or replacing array elements. It alters the length property and shifts array elements to higher or lower indexes as needed. See §7.8 for details.
 
-7.6 Iterating Arrays
+## 7.6 Iterating Arrays
 As of ES6, the easiest way to loop through each of the elements of an array (or any iterable object) is with the for/of loop, which was covered in detail in §5.4.4:
 
 let letters = [..."Hello world"];  // An array of letters
@@ -237,7 +237,7 @@ for(let i = 0; i < a.length; i++) {
     if (a[i] === undefined) continue; // Skip undefined + nonexistent elements
     // loop body here
 }
-7.7 Multidimensional Arrays
+## 7.7 Multidimensional Arrays
 JavaScript does not support true multidimensional arrays, but you can approximate them with arrays of arrays. To access a value in an array of arrays, simply use the [] operator twice. For example, suppose the variable matrix is an array of arrays of numbers. Every element in matrix[x] is an array of numbers. To access a particular number within this array, you would write matrix[x][y]. Here is a concrete example that uses a two-dimensional array as a multiplication table:
 
 // Create a multidimensional array
@@ -255,7 +255,7 @@ for(let row = 0; row < table.length; row++) {
 
 // Use the multidimensional array to compute 5*7
 table[5][7]  // => 35
-7.8 Array Methods
+## 7.8 Array Methods
 The preceding sections have focused on basic JavaScript syntax for working with arrays. In general, though, it is the methods defined by the Array class that are the most powerful. The next sections document these methods. While reading about these methods, keep in mind that some of them modify the array they are called on and some of them leave the array unchanged. A number of the methods return an array: sometimes, this is a new array, and the original is unchanged. Other times, a method will modify the array in place and will also return a reference to the modified array.
 
 Each of the subsections that follows covers a group of related array methods:
@@ -270,7 +270,7 @@ Searching and sorting methods are for locating elements within an array and for 
 
 The following subsections also cover the static methods of the Array class and a few miscellaneous methods for concatenating arrays and converting arrays to strings.
 
-7.8.1 Array Iterator Methods
+### 7.8.1 Array Iterator Methods
 The methods described in this section iterate over arrays by passing array elements, in order, to a function you supply, and they provide convenient ways to iterate, map, filter, test, and reduce arrays.
 
 Before we explain the methods in detail, however, it is worth making some generalizations about them. First, all of these methods accept a function as their first argument and invoke that function once for each element (or some elements) of the array. If the array is sparse, the function you pass is not invoked for nonexistent elements. In most cases, the function you supply is invoked with three arguments: the value of the array element, the index of the array element, and the array itself. Often, you only need the first of these argument values and can ignore the second and third values.
@@ -356,7 +356,7 @@ Note that neither reduce() nor reduceRight() accepts an optional argument that s
 
 The examples shown so far have been numeric for simplicity, but reduce() and reduceRight() are not intended solely for mathematical computations. Any function that can combine two values (such as two objects) into one value of the same type can be used as a reduction function. On the other hand, algorithms expressed using array reductions can quickly become complex and hard to understand, and you may find that it is easier to read, write, and reason about your code if you use regular looping constructs to process your arrays.
 
-7.8.2 Flattening arrays with flat() and flatMap()
+### 7.8.2 Flattening arrays with flat() and flatMap()
 In ES2019, the flat() method creates and returns a new array that contains the same elements as the array it is called on, except that any elements that are themselves arrays are “flattened” into the returned array. For example:
 
 [1, [2, 3]].flat()    // => [1, 2, 3]
@@ -377,7 +377,7 @@ You can think of flatMap() as a generalization of map() that allows each element
 
 // Map non-negative numbers to their square roots
 [-2, -1, 1, 2].flatMap(x => x < 0 ? [] : Math.sqrt(x)) // => [1, 2**0.5]
-7.8.3 Adding arrays with concat()
+### 7.8.3 Adding arrays with concat()
 The concat() method creates and returns a new array that contains the elements of the original array on which concat() was invoked, followed by each of the arguments to concat(). If any of these arguments is itself an array, then it is the array elements that are concatenated, not the array itself. Note, however, that concat() does not recursively flatten arrays of arrays. concat() does not modify the array on which it is invoked:
 
 let a = [1,2,3];
@@ -387,7 +387,7 @@ a.concat(4, [5,[6,7]])  // => [1,2,3,4,5,[6,7]]; but not nested arrays
 a                       // => [1,2,3]; the original array is unmodified
 Note that concat() makes a new copy of the array it is called on. In many cases, this is the right thing to do, but it is an expensive operation. If you find yourself writing code like a = a.concat(x), then you should think about modifying your array in place with push() or splice() instead of creating a new one.
 
-7.8.4 Stacks and Queues with push(), pop(), shift(), and unshift()
+### 7.8.4 Stacks and Queues with push(), pop(), shift(), and unshift()
 The push() and pop() methods allow you to work with arrays as if they were stacks. The push() method appends one or more new elements to the end of an array and returns the new length of the array. Unlike concat(), push() does not flatten array arguments. The pop() method does the reverse: it deletes the last element of an array, decrements the array length, and returns the value that it removed. Note that both methods modify the array in place. The combination of push() and pop() allows you to use a JavaScript array to implement a first-in, last-out stack. For example:
 
 let stack = [];       // stack == []
@@ -416,7 +416,7 @@ a.unshift(1)           // a == [1]
 a.unshift(2)           // a == [2, 1]
 a = [];                // a == []
 a.unshift(1,2)         // a == [1, 2]
-7.8.5 Subarrays with slice(), splice(), fill(), and copyWithin()
+### 7.8.5 Subarrays with slice(), splice(), fill(), and copyWithin()
 Arrays define a number of methods that work on contiguous regions, or subarrays or “slices” of an array. The following sections describe methods for extracting, replacing, filling, and copying slices.
 
 SLICE()
@@ -461,7 +461,7 @@ a.copyWithin(2, 3, 5) // => [1,1,3,4,4]: copy last 2 elements to index 2
 a.copyWithin(0, -2)   // => [4,4,3,4,4]: negative offsets work, too
 copyWithin() is intended as a high-performance method that is particularly useful with typed arrays (see §11.2). It is modeled after the memmove() function from the C standard library. Note that the copy will work correctly even if there is overlap between the source and destination regions.
 
-7.8.6 Array Searching and Sorting Methods
+### 7.8.6 Array Searching and Sorting Methods
 Arrays implement indexOf(), lastIndexOf(), and includes() methods that are similar to the same-named methods of strings. There are also sort() and reverse() methods for reordering the elements of an array. These methods are described in the subsections that follow.
 
 INDEXOF() AND LASTINDEXOF()
@@ -534,7 +534,7 @@ The reverse() method reverses the order of the elements of an array and returns 
 
 let a = [1,2,3];
 a.reverse();   // a == [3,2,1]
-7.8.7 Array to String Conversions
+### 7.8.7 Array to String Conversions
 The Array class defines three methods that can convert arrays to strings, which is generally something you might do when creating log and error messages. (If you want to save the contents of an array in textual form for later reuse, serialize the array with JSON.stringify() [§6.8] instead of using the methods described here.)
 
 The join() method converts all the elements of an array to strings and concatenates them, returning the resulting string. You can specify an optional string that separates the elements in the resulting string. If no separator string is specified, a comma is used:
@@ -556,14 +556,14 @@ Note that the output does not include square brackets or any other sort of delim
 
 toLocaleString() is the localized version of toString(). It converts each array element to a string by calling the toLocaleString() method of the element, and then it concatenates the resulting strings using a locale-specific (and implementation-defined) separator string.
 
-7.8.8 Static Array Functions
+### 7.8.8 Static Array Functions
 In addition to the array methods we’ve already documented, the Array class also defines three static functions that you can invoke through the Array constructor rather than on arrays. Array.of() and Array.from() are factory methods for creating new arrays. They were documented in §7.1.4 and §7.1.5.
 
 The one other static array function is Array.isArray(), which is useful for determining whether an unknown value is an array or not:
 
 Array.isArray([])     // => true
 Array.isArray({})     // => false
-7.9 Array-Like Objects
+## 7.9 Array-Like Objects
 As we’ve seen, JavaScript arrays have some special features that other objects do not have:
 
 The length property is automatically updated as new elements are added to the list.
@@ -625,7 +625,7 @@ Array.prototype.slice.call(a, 0)   // => ["a","b","c"]: true array copy
 Array.from(a)                      // => ["a","b","c"]: easier array copy
 The second-to-last line of this code invokes the Array slice() method on an array-like object in order to copy the elements of that object into a true array object. This is an idiomatic trick that exists in much legacy code, but is now much easier to do with Array.from().
 
-7.10 Strings as Arrays
+## 7.10 Strings as Arrays
 JavaScript strings behave like read-only arrays of UTF-16 Unicode characters. Instead of accessing individual characters with the charAt() method, you can use square brackets:
 
 let s = "test";
@@ -638,7 +638,7 @@ The primary benefit of indexable strings is simply that we can replace calls to 
 Array.prototype.join.call("JavaScript", " ")  // => "J a v a S c r i p t"
 Keep in mind that strings are immutable values, so when they are treated as arrays, they are read-only arrays. Array methods like push(), sort(), reverse(), and splice() modify an array in place and do not work on strings. Attempting to modify a string using an array method does not, however, cause an error: it simply fails silently.
 
-7.11 Summary
+## 7.11 Summary
 This chapter has covered JavaScript arrays in depth, including esoteric details about sparse arrays and array-like objects. The main points to take from this chapter are:
 
 Array literals are written as comma-separated lists of values within square brackets.
