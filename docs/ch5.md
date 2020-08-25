@@ -16,7 +16,7 @@ Statements like break, return, and throw that cause the interpreter to jump to a
 
 The sections that follow describe the various statements in JavaScript and explain their syntax. Table 5-1, at the end of the chapter, summarizes the syntax. A JavaScript program is simply a sequence of statements, separated from one another with semicolons, so once you are familiar with the statements of JavaScript, you can begin writing JavaScript programs.
 
-5.1 Expression Statements
+## 5.1 Expression Statements
 The simplest kinds of statements in JavaScript are expressions that have side effects. This sort of statement was shown in Chapter 4. Assignment statements are one major category of expression statements. For example:
 
 greeting = "Hello " + name;
@@ -39,7 +39,7 @@ But you might well compute the value and assign it to a variable for future use:
 cx = Math.cos(x);
 Note that each line of code in each of these examples is terminated with a semicolon.
 
-5.2 Compound and Empty Statements
+## 5.2 Compound and Empty Statements
 Just as the comma operator (§4.13.7) combines multiple expressions into a single expression, a statement block combines multiple statements into a single compound statement. A statement block is simply a sequence of statements enclosed within curly braces. Thus, the following lines act as a single statement and can be used anywhere that JavaScript expects a single statement:
 
 {
@@ -67,12 +67,12 @@ if ((a === 0) || (b === 0));  // Oops! This line does nothing...
 When you intentionally use the empty statement, it is a good idea to comment your code in a way that makes it clear that you are doing it on purpose. For example:
 
 for(let i = 0; i < a.length; a[i++] = 0) /* empty */ ;
-5.3 Conditionals
+## 5.3 Conditionals
 Conditional statements execute or skip other statements depending on the value of a specified expression. These statements are the decision points of your code, and they are also sometimes known as “branches.” If you imagine a JavaScript interpreter following a path through your code, the conditional statements are the places where the code branches into two or more paths and the interpreter must choose which path to follow.
 
 The following subsections explain JavaScript’s basic conditional, the if/else statement, and also cover switch, a more complicated, multiway branch statement.
 
-5.3.1 if
+### 5.3.1 if
 The if statement is the fundamental control statement that allows JavaScript to make decisions, or, more precisely, to execute statements conditionally. This statement has two forms. The first is:
 
 if (expression)
@@ -133,7 +133,7 @@ if (i === j) {
 }
 Many programmers make a habit of enclosing the bodies of if and else statements (as well as other compound statements, such as while loops) within curly braces, even when the body consists of only a single statement. Doing so consistently can prevent the sort of problem just shown, and I advise you to adopt this practice. In this printed book, I place a premium on keeping example code vertically compact, and I do not always follow my own advice on this matter.
 
-5.3.2 else if
+### 5.3.2 else if
 The if/else statement evaluates an expression and executes one of two pieces of code, depending on the outcome. But what about when you need to execute one of many pieces of code? One way to do this is with an else if statement. else if is not really a JavaScript statement, but simply a frequently used programming idiom that results when repeated if/else statements are used:
 
 if (n === 1) {
@@ -163,7 +163,7 @@ else {
         }
     }
 }
-5.3.3 switch
+### 5.3.3 switch
 An if statement causes a branch in the flow of a program’s execution, and you can use the else if idiom to perform a multiway branch. This is not the best solution, however, when all of the branches depend on the value of the same expression. In this case, it is wasteful to repeatedly evaluate that expression in multiple if statements.
 
 The switch statement handles exactly this situation. The switch keyword is followed by an expression in parentheses and a block of code in curly braces:
@@ -211,10 +211,10 @@ Because not all of the case expressions are evaluated each time the switch state
 
 As explained earlier, if none of the case expressions match the switch expression, the switch statement begins executing its body at the statement labeled default:. If there is no default: label, the switch statement skips its body altogether. Note that in the examples shown, the default: label appears at the end of the switch body, following all the case labels. This is a logical and common place for it, but it can actually appear anywhere within the body of the statement.
 
-5.4 Loops
+## 5.4 Loops
 To understand conditional statements, we imagined the JavaScript interpreter following a branching path through your source code. The looping statements are those that bend that path back upon itself to repeat portions of your code. JavaScript has five looping statements: while, do/while, for, for/of (and its for/await variant), and for/in. The following subsections explain each in turn. One common use for loops is to iterate over the elements of an array. §7.6 discusses this kind of loop in detail and covers special looping methods defined by the Array class.
 
-5.4.1 while
+### 5.4.1 while
 Just as the if statement is JavaScript’s basic conditional, the while statement is JavaScript’s basic loop. It has the following syntax:
 
 while (expression)
@@ -230,7 +230,7 @@ while(count < 10) {
 }
 As you can see, the variable count starts off at 0 and is incremented each time the body of the loop runs. Once the loop has executed 10 times, the expression becomes false (i.e., the variable count is no longer less than 10), the while statement finishes, and the interpreter can move on to the next statement in the program. Many loops have a counter variable like count. The variable names i, j, and k are commonly used as loop counters, though you should use more descriptive names if it makes your code easier to understand.
 
-5.4.2 do/while
+### 5.4.2 do/while
 The do/while loop is like a while loop, except that the loop expression is tested at the bottom of the loop rather than at the top. This means that the body of the loop is always executed at least once. The syntax is:
 
 do
@@ -250,7 +250,7 @@ function printArray(a) {
 }
 There are a couple of syntactic differences between the do/while loop and the ordinary while loop. First, the do loop requires both the do keyword (to mark the beginning of the loop) and the while keyword (to mark the end and introduce the loop condition). Also, the do loop must always be terminated with a semicolon. The while loop doesn’t need a semicolon if the loop body is enclosed in curly braces.
 
-5.4.3 for
+### 5.4.3 for
 The for statement provides a looping construct that is often more convenient than the while statement. The for statement simplifies loops that follow a common pattern. Most loops have a counter variable of some kind. This variable is initialized before the loop starts and is tested before each iteration of the loop. Finally, the counter variable is incremented or otherwise updated at the end of the loop body, just before the variable is tested again. In this kind of loop, the initialization, the test, and the update are the three crucial manipulations of a loop variable. The for statement encodes each of these three manipulations as an expression and makes those expressions an explicit part of the loop syntax:
 
 for(initialize ; test ; increment)
@@ -285,7 +285,7 @@ function tail(o) {                          // Return the tail of linked list o
 }
 Note that this code has no initialize expression. Any of the three expressions may be omitted from a for loop, but the two semicolons are required. If you omit the test expression, the loop repeats forever, and for(;;) is another way of writing an infinite loop, like while(true).
 
-5.4.4 for/of
+### 5.4.4 for/of
 ES6 defines a new loop statement: for/of. This new kind of loop uses the for keyword but is a completely different kind of loop than the regular for loop. (It is also completely different than the older for/in loop that we’ll describe in §5.4.5.)
 
 The for/of loop works with iterable objects. We’ll explain exactly what it means for an object to be iterable in Chapter 12, but for this chapter, it is enough to know that arrays, strings, sets, and maps are iterable: they represent a sequence or set of elements that you can loop or iterate through using a for/of loop.
@@ -376,7 +376,7 @@ async function printStream(stream) {
         console.log(chunk);
     }
 }
-5.4.5 for/in
+### 5.4.5 for/in
 A for/in loop looks a lot like a for/of loop, with the of keyword changed to in. While a for/of loop requires an iterable object after the of, a for/in loop works with any object after the in. The for/of loop is new in ES6, but for/in has been part of JavaScript since the very beginning (which is why it has the more natural sounding syntax).
 
 The for/in statement loops through the property names of a specified object. The syntax looks like this:
@@ -408,14 +408,14 @@ Enumerable inherited properties (see §6.3.2) are also enumerated by the for/in 
 
 If the body of a for/in loop deletes a property that has not yet been enumerated, that property will not be enumerated. If the body of the loop defines new properties on the object, those properties may or may not be enumerated. See §6.6.1 for more information on the order in which for/in enumerates the properties of an object.
 
-5.5 Jumps
+## 5.5 Jumps
 Another category of JavaScript statements are jump statements. As the name implies, these cause the JavaScript interpreter to jump to a new location in the source code. The break statement makes the interpreter jump to the end of a loop or other statement. continue makes the interpreter skip the rest of the body of a loop and jump back to the top of a loop to begin a new iteration. JavaScript allows statements to be named, or labeled, and break and continue can identify the target loop or other statement label.
 
 The return statement makes the interpreter jump from a function invocation back to the code that invoked it and also supplies the value for the invocation. The throw statement is a kind of interim return from a generator function. The throw statement raises, or throws, an exception and is designed to work with the try/catch/finally statement, which establishes a block of exception-handling code. This is a complicated kind of jump statement: when an exception is thrown, the interpreter jumps to the nearest enclosing exception handler, which may be in the same function or up the call stack in an invoking function.
 
 Details about each of these jump statements are in the sections that follow.
 
-5.5.1 Labeled Statements
+### 5.5.1 Labeled Statements
 Any statement may be labeled by preceding it with an identifier and a colon:
 
 identifier: statement
@@ -428,7 +428,7 @@ mainloop: while(token !== null) {
 }
 The identifier you use to label a statement can be any legal JavaScript identifier that is not a reserved word. The namespace for labels is different than the namespace for variables and functions, so you can use the same identifier as a statement label and as a variable or function name. Statement labels are defined only within the statement to which they apply (and within its substatements, of course). A statement may not have the same label as a statement that contains it, but two statements may have the same label as long as neither one is nested within the other. Labeled statements may themselves be labeled. Effectively, this means that any statement may have multiple labels.
 
-5.5.2 break
+### 5.5.2 break
 The break statement, used alone, causes the innermost enclosing loop or switch statement to exit immediately. Its syntax is simple:
 
 break;
@@ -469,7 +469,7 @@ computeSum: if (matrix) {
 // Otherwise, sum contains the sum of all cells of the matrix.
 Finally, note that a break statement, with or without a label, can not transfer control across function boundaries. You cannot label a function definition statement, for example, and then use that label inside the function.
 
-5.5.3 continue
+### 5.5.3 continue
 The continue statement is similar to the break statement. Instead of exiting a loop, however, continue restarts a loop at the next iteration. The continue statement’s syntax is just as simple as the break statement’s:
 
 continue;
@@ -498,7 +498,7 @@ for(let i = 0; i < data.length; i++) {
 }
 Like the break statement, the continue statement can be used in its labeled form within nested loops when the loop to be restarted is not the immediately enclosing loop. Also, as with the break statement, line breaks are not allowed between the continue statement and its labelname.
 
-5.5.4 return
+### 5.5.4 return
 Recall that function invocations are expressions and that all expressions have values. A return statement within a function specifies the value of invocations of that function. Here’s the syntax of the return statement:
 
 return expression;
@@ -517,7 +517,7 @@ function displayObject(o) {
 }
 Because of JavaScript’s automatic semicolon insertion (§2.6), you cannot include a line break between the return keyword and the expression that follows it.
 
-5.5.5 yield
+### 5.5.5 yield
 The yield statement is much like the return statement but is used only in ES6 generator functions (see §12.3) to produce the next value in the generated sequence of values without actually returning:
 
 // A generator function that yields a range of integers
@@ -528,7 +528,7 @@ function* range(from, to) {
 }
 In order to understand yield, you must understand iterators and generators, which will not be covered until Chapter 12. yield is included here for completeness, however. (Technically, though, yield is an operator rather than a statement, as explained in §12.4.2.)
 
-5.5.6 throw
+### 5.5.6 throw
 An exception is a signal that indicates that some sort of exceptional condition or error has occurred. To throw an exception is to signal such an error or exceptional condition. To catch an exception is to handle it—to take whatever actions are necessary or appropriate to recover from the exception. In JavaScript, exceptions are thrown whenever a runtime error occurs and whenever the program explicitly throws one using the throw statement. Exceptions are caught with the try/catch/finally statement, which is described in the next section.
 
 The throw statement has the following syntax:
@@ -547,7 +547,7 @@ function factorial(x) {
 factorial(4)   // => 24
 When an exception is thrown, the JavaScript interpreter immediately stops normal program execution and jumps to the nearest exception handler. Exception handlers are written using the catch clause of the try/catch/finally statement, which is described in the next section. If the block of code in which the exception was thrown does not have an associated catch clause, the interpreter checks the next-highest enclosing block of code to see if it has an exception handler associated with it. This continues until a handler is found. If an exception is thrown in a function that does not contain a try/catch/finally statement to handle it, the exception propagates up to the code that invoked the function. In this way, exceptions propagate up through the lexical structure of JavaScript methods and up the call stack. If no exception handler is ever found, the exception is treated as an error and is reported to the user.
 
-5.5.7 try/catch/finally
+### 5.5.7 try/catch/finally
 The try/catch/finally statement is JavaScript’s exception handling mechanism. The try clause of this statement simply defines the block of code whose exceptions are to be handled. The try block is followed by a catch clause, which is a block of statements that are invoked when an exception occurs anywhere within the try block. The catch clause is followed by a finally block containing cleanup code that is guaranteed to be executed, regardless of what happens in the try block. Both the catch and finally blocks are optional, but a try block must be accompanied by at least one of these blocks. The try, catch, and finally blocks all begin and end with curly braces. These braces are a required part of the syntax and cannot be omitted, even if a clause contains only a single statement.
 
 The following code illustrates the syntax and purpose of the try/catch/finally statement:
@@ -619,10 +619,10 @@ function parseJSON(s) {
         return undefined;
     }
 }
-5.6 Miscellaneous Statements
+## 5.6 Miscellaneous Statements
 This section describes the remaining three JavaScript statements—with, debugger, and "use strict".
 
-5.6.1 with
+### 5.6.1 with
 The with statement runs a block of code as if the properties of a specified object were variables in scope for that code. It has the following syntax:
 
 with (object)
@@ -650,7 +650,7 @@ f.address.value = "";
 f.email.value = "";
 Note that if you use const or let or var to declare a variable or constant within the body of a with statement, it creates an ordinary variable and does not define a new property within the specified object.
 
-5.6.2 debugger
+### 5.6.2 debugger
 The debugger statement normally does nothing. If, however, a debugger program is available and is running, then an implementation may (but is not required to) perform some kind of debugging action. In practice, this statement acts like a breakpoint: execution of JavaScript code stops, and you can use the debugger to print variables’ values, examine the call stack, and so on. Suppose, for example, that you are getting an exception in your function f() because it is being called with an undefined argument, and you can’t figure out where this call is coming from. To help you in debugging this problem, you might alter f() so that it begins like this:
 
 function f(o) {
@@ -661,7 +661,7 @@ Now, when f() is called with no argument, execution will stop, and you can use t
 
 Note that it is not enough to have a debugger available: the debugger statement won’t start the debugger for you. If you’re using a web browser and have the developer tools console open, however, this statement will cause a breakpoint.
 
-5.6.3 “use strict”
+### 5.6.3 “use strict”
 "use strict" is a directive introduced in ES5. Directives are not statements (but are close enough that "use strict" is documented here). There are two important differences between the "use strict" directive and regular statements:
 
 It does not include any language keywords: the directive is just an expression statement that consists of a special string literal (in single or double quotes).
@@ -698,7 +698,7 @@ In strict mode, the identifiers eval and arguments are treated like keywords, an
 
 In strict mode, the ability to examine the call stack is restricted. arguments.caller and arguments.callee both throw a TypeError within a strict mode function. Strict mode functions also have caller and arguments properties that throw TypeError when read. (Some implementations define these nonstandard properties on non-strict functions.)
 
-5.7 Declarations
+## 5.7 Declarations
 The keywords const, let, var, function, class, import, and export are not technically statements, but they look a lot like statements, and this book refers informally to them as statements, so they deserve a mention in this chapter.
 
 These keywords are more accurately described as declarations rather than statements. We said at the start of this chapter that statements “make something happen.” Declarations serve to define new values and give them names that we can use to refer to those values. They don’t make much happen themselves, but by providing names for values they, in an important sense, define the meaning of the other statements in your program.
@@ -707,13 +707,13 @@ When a program runs, it is the program’s expressions that are being evaluated 
 
 JavaScript declarations are used to define constants, variables, functions, and classes and for importing and exporting values between modules. The next subsections give examples of all of these declarations. They are all covered in much more detail elsewhere in this book.
 
-5.7.1 const, let, and var
+### 5.7.1 const, let, and var
 The const, let, and var declarations are covered in §3.10. In ES6 and later, const declares constants, and let declares variables. Prior to ES6, the var keyword was the only way to declare variables and there was no way to declare constants. Variables declared with var are scoped to the containing function rather than the containing block. This can be a source of bugs, and in modern JavaScript there is really no reason to use var instead of let.
 
 const TAU = 2*Math.PI;
 let radius = 3;
 var circumference = TAU * radius;
-5.7.2 function
+### 5.7.2 function
 The function declaration is used to define functions, which are covered in detail in Chapter 8. (We also saw function in §4.3, where it was used as part of a function expression rather than a function declaration.) A function declaration looks like this:
 
 function area(radius) {
@@ -723,7 +723,7 @@ A function declaration creates a function object and assigns it to the specified
 
 §12.3 describes a special kind of function known as a generator. Generator declarations use the function keyword but follow it with an asterisk. §13.3 describes asynchronous functions, which are also declared using the function keyword but are prefixed with the async keyword.
 
-5.7.3 class
+### 5.7.3 class
 In ES6 and later, the class declaration creates a new class and gives it a name that we can use to refer to it. Classes are described in detail in Chapter 9. A simple class declaration might look like this:
 
 class Circle {
@@ -733,7 +733,7 @@ class Circle {
 }
 Unlike functions, class declarations are not hoisted, and you cannot use a class declared this way in code that appears before the declaration.
 
-5.7.4 import and export
+### 5.7.4 import and export
 The import and export declarations are used together to make values defined in one module of JavaScript code available in another module. A module is a file of JavaScript code with its own global namespace, completely independent of all other modules. The only way that a value (such as function or class) defined in one module can be used in another module is if the defining module exports it with export and the using module imports it with import. Modules are the subject of Chapter 10, and import and export are covered in detail in §10.3.
 
 import directives are used to import one or more values from another file of JavaScript code and give them names within the current module. import directives come in a few different forms. Here are some examples:
@@ -752,7 +752,7 @@ The export keyword is sometimes used as a modifier on other declarations, result
 export const TAU = 2 * Math.PI;
 export function magnitude(x,y) { return Math.sqrt(x*x + y*y); }
 export default class Circle { /* class definition omitted here */ }
-5.8 Summary of JavaScript Statements
+## 5.8 Summary of JavaScript Statements
 This chapter introduced each of the JavaScript language’s statements, which are summarized in Table 5-1.
 
 Table 5-1. JavaScript statement syntax

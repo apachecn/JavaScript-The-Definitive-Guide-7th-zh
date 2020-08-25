@@ -22,7 +22,7 @@ Most of this book is focused on the JavaScript language itself. Chapter 11 docum
 
 This book covers low-level fundamentals first, and then builds on those to more advanced and higher-level abstractions. The chapters are intended to be read more or less in order. But learning a new programming language is never a linear process, and describing a language is not linear either: each language feature is related to other features, and this book is full of cross-references—sometimes backward and sometimes forward—to related material. This introductory chapter makes a quick first pass through the language, introducing key features that will make it easier to understand the in-depth treatment in the chapters that follow. If you are already a practicing JavaScript programmer, you can probably skip this chapter. (Although you might enjoy reading Example 1-1 at the end of the chapter before you move on.)
 
-1.1 Exploring JavaScript
+## 1.1 Exploring JavaScript
 When learning a new programming language, it’s important to try the examples in the book, then modify them and try them again to test your understanding of the language. To do that, you need a JavaScript interpreter.
 
 The easiest way to try out a few lines of JavaScript is to open up the web developer tools in your web browser (with F12, Ctrl-Shift-I, or Command-Option-I) and select the Console tab. You can then type code at the prompt and see the results as you type. Browser developer tools often appear as panes at the bottom or right of the browser window, but you can usually detach them as separate windows (as pictured in Figure 1-1), which is often quite convenient.
@@ -52,7 +52,7 @@ undefined
 true
 > (x > 3) || (y < 3)
 false
-1.2 Hello World
+## 1.2 Hello World
 When you are ready to start experimenting with longer chunks of code, these line-by-line interactive environments may no longer be suitable, and you will probably prefer to write your code in a text editor. From there, you can copy and paste to the JavaScript console or into a Node session. Or you can save your code to a file (the traditional filename extension for JavaScript code is .js) and then run that file of JavaScript code with Node:
 
 $ node snippet.js
@@ -69,7 +69,7 @@ Then load hello.html into your web browser using a file:// URL like this one:
 file:///Users/username/javascript/hello.html
 Open the developer tools window to see the greeting in the console.
 
-1.3 A Tour of JavaScript
+## 1.3 A Tour of JavaScript
 This section presents a quick introduction, through code examples, to the JavaScript language. After this introductory chapter, we dive into JavaScript at the lowest level: Chapter 2 explains things like JavaScript comments, semicolons, and the Unicode character set. Chapter 3 starts to get more interesting: it explains JavaScript variables and the values you can assign to those variables.
 
 Here’s some sample code to illustrate the highlights of those two chapters:
@@ -306,7 +306,7 @@ Introduces the Node host environment, covering the fundamental programming model
 Chapter 17, JavaScript Tools and Extensions
 Covers tools and language extensions that are worth knowing about because they are widely used and may make you a more productive programmer.
 
-1.4 Example: Character Frequency Histograms
+## 1.4 Example: Character Frequency Histograms
 This chapter concludes with a short but nontrivial JavaScript program. Example 1-1 is a Node program that reads text from standard input, computes a character frequency histogram from that text, and then prints out the histogram. You could invoke the program like this to analyze the character frequency of its own source code:
 
 $ node charfreq.js < charfreq.js
@@ -420,5 +420,5 @@ async function histogramFromStdin() {
 // This one final line of code is the main body of the program.
 // It makes a Histogram object from standard input, then prints the histogram.
 histogramFromStdin().then(histogram => { console.log(histogram.toString()); });
-1.5 Summary
+## 1.5 Summary
 This book explains JavaScript from the bottom up. This means that we start with low-level details like comments, identifiers, variables, and types; then build to expressions, statements, objects, and functions; and then cover high-level language abstractions like classes and modules. I take the word definitive in the title of this book seriously, and the coming chapters explain the language at a level of detail that may feel off-putting at first. True mastery of JavaScript requires an understanding of the details, however, and I hope that you will make time to read this book cover to cover. But please don’t feel that you need to do that on your first reading. If you find yourself feeling bogged down in a section, simply skip to the next. You can come back and master the details once you have a working knowledge of the language as a whole.

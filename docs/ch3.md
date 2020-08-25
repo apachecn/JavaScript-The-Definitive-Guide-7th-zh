@@ -1,7 +1,7 @@
 # Chapter 3. Types, Values, and Variables
 Computer programs work by manipulating values, such as the number 3.14 or the text “Hello World.” The kinds of values that can be represented and manipulated in a programming language are known as types, and one of the most fundamental characteristics of a programming language is the set of types it supports. When a program needs to retain a value for future use, it assigns the value to (or “stores” the value in) a variable. Variables have names, and they allow use of those names in our programs to refer to values. The way that variables work is another fundamental characteristic of any programming language. This chapter explains types, values, and variables in JavaScript. It begins with an overview and some definitions.
 
-3.1 Overview and Definitions
+## 3.1 Overview and Definitions
 JavaScript types can be divided into two categories: primitive types and object types. JavaScript’s primitive types include numbers, strings of text (known as strings), and Boolean truth values (known as booleans). A significant portion of this chapter is dedicated to a detailed explanation of the numeric (§3.2) and string (§3.3) types in JavaScript. Booleans are covered in §3.4.
 
 The special JavaScript values null and undefined are primitive values, but they are not numbers, strings, or booleans. Each value is typically considered to be the sole member of its own special type. §3.5 has more about null and undefined. ES6 adds a new special-purpose type, known as Symbol, that enables the definition of language extensions without harming backward compatibility. Symbols are covered briefly in §3.6.
@@ -29,14 +29,14 @@ Constants and variables allow you to use names to refer to values in your progra
 
 As you can see from this long introduction, this is a wide-ranging chapter that explains many fundamental details about how data is represented and manipulated in JavaScript. We’ll begin by diving right in to the details of JavaScript numbers and text.
 
-3.2 Numbers
+## 3.2 Number
 JavaScript’s primary numeric type, Number, is used to represent integers and to approximate real numbers. JavaScript represents numbers using the 64-bit floating-point format defined by the IEEE 754 standard,1 which means it can represent numbers as large as ±1.7976931348623157 × 10308 and as small as ±5 × 10−324.
 
 The JavaScript number format allows you to exactly represent all integers between −9,007,199,254,740,992 (−253) and 9,007,199,254,740,992 (253), inclusive. If you use integer values larger than this, you may lose precision in the trailing digits. Note, however, that certain operations in JavaScript (such as array indexing and the bitwise operators described in Chapter 4) are performed with 32-bit integers. If you need to exactly represent larger integers, see §3.2.5.
 
 When a number appears directly in a JavaScript program, it’s called a numeric literal. JavaScript supports numeric literals in several formats, as described in the following sections. Note that any numeric literal can be preceded by a minus sign (-) to make the number negative.
 
-3.2.1 Integer Literals
+### 3.2.1 Integer Literals
 In a JavaScript program, a base-10 integer is written as a sequence of digits. For example:
 
 0
@@ -50,7 +50,7 @@ In ES6 and later, you can also express integers in binary (base 2) or octal (bas
 
 0b10101  // => 21:  (1*16 + 0*8 + 1*4 + 0*2 + 1*1)
 0o377    // => 255: (3*64 + 7*8 + 7*1)
-3.2.2 Floating-Point Literals
+### 3.2.2 Floating-Point Literals
 Floating-point literals can have a decimal point; they use the traditional syntax for real numbers. A real value is represented as the integral part of the number, followed by a decimal point and the fractional part of the number.
 
 Floating-point literals may also be represented using exponential notation: a real number followed by the letter e (or E), followed by an optional plus or minus sign, followed by an integer exponent. This notation represents the real number multiplied by 10 to the power of the exponent.
@@ -74,7 +74,7 @@ let bits = 0b0001_1101_0111;   // As a nibble separator.
 let fraction = 0.123_456_789;  // Works in the fractional part, too.
 At the time of this writing in early 2020, underscores in numeric literals are not yet formally standardized as part of JavaScript. But they are in the advanced stages of the standardization process and are implemented by all major browsers and by Node.
 
-3.2.3 Arithmetic in JavaScript
+### 3.2.3 Arithmetic in JavaScript
 JavaScript programs work with numbers using the arithmetic operators . that the language provides. These include + for addition, - for subtraction, * for multiplication, / for division, and % for modulo (remainder after division). ES2016 adds ** for exponentiation. Full details on these and other operators can be found in Chapter 4.
 
 In addition to these basic arithmetic operators, JavaScript supports more complex mathematical operations through a set of functions and constants defined as properties of the Math object:
@@ -159,7 +159,7 @@ let zero = 0;         // Regular zero
 let negz = -0;        // Negative zero
 zero === negz         // => true: zero and negative zero are equal
 1/zero === 1/negz     // => false: Infinity and -Infinity are not equal
-3.2.4 Binary Floating-Point and Rounding Errors
+### 3.2.4 Binary Floating-Point and Rounding Errors
 There are infinitely many real numbers, but only a finite number of them (18,437,736,874,454,810,627, to be exact) can be represented exactly by the JavaScript floating-point format. This means that when you’re working with real numbers in JavaScript, the representation of the number will often be an approximation of the actual number.
 
 The IEEE-754 floating-point representation used by JavaScript (and just about every other modern programming language) is a binary representation, which can exactly represent fractions like 1/2, 1/8, and 1/1024. Unfortunately, the fractions we use most commonly (especially when performing financial calculations) are decimal fractions: 1/10, 1/100, and so on. Binary floating-point representations cannot exactly represent numbers as simple as 0.1.
@@ -175,7 +175,7 @@ Because of rounding error, the difference between the approximations of .3 and .
 
 If these floating-point approximations are problematic for your programs, consider using scaled integers. For example, you might manipulate monetary values as integer cents rather than fractional dollars.
 
-3.2.5 Arbitrary Precision Integers with BigInt
+### 3.2.5 Arbitrary Precision Integers with BigInt
 One of the newest features of JavaScript, defined in ES2020, is a new numeric type known as BigInt. As of early 2020, it has been implemented in Chrome, Firefox, Edge, and Node, and there is an implementation in progress in Safari. As the name implies, BigInt is a numeric type whose values are integers. The type was added to JavaScript mainly to allow the representation of 64-bit integers, which are required for compatibility with many other programming languages and APIs. But BigInt values can have thousands or even millions of digits, should you have need to work with numbers that large. (Note, however, that BigInt implementations are not suitable for cryptography because they do not attempt to prevent timing attacks.)
 
 BigInt literals are written as a string of digits followed by a lowercase letter n. By default, the are in base 10, but you can use the 0b, 0o, and 0x prefixes for binary, octal, and hexadecimal BigInts:
@@ -207,7 +207,7 @@ Comparison operators, by contrast, do work with mixed numeric types (but see §3
 0 === 0n   // => false: the === checks for type equality as well
 The bitwise operators (described in §4.8.3) generally work with BigInt operands. None of the functions of the Math object accept BigInt operands, however.
 
-3.2.6 Dates and Times
+### 3.2.6 Dates and Times
 JavaScript defines a simple Date class for representing and manipulating the numbers that represent dates and times. JavaScript Dates are objects, but they also have a numeric representation as a timestamp that specifies the number of elapsed milliseconds since January 1, 1970:
 
 let timestamp = Date.now();  // The current time as a timestamp (a number).
@@ -216,7 +216,7 @@ let ms = now.getTime();      // Convert to a millisecond timestamp.
 let iso = now.toISOString(); // Convert to a string in standard format.
 The Date class and its methods are covered in detail in §11.4. But we will see Date objects again in §3.9.3 when we examine the details of JavaScript type conversions.
 
-3.3 Text
+## 3.3 Text
 The JavaScript type for representing text is the string. A string is an immutable ordered sequence of 16-bit values, each of which typically represents a Unicode character. The length of a string is the number of 16-bit values it contains. JavaScript’s strings (and its arrays) use zero-based indexing: the first 16-bit value is at position 0, the second at position 1, and so on. The empty string is the string of length 0. JavaScript does not have a special type that represents a single element of a string. To represent a single 16-bit value, simply use a string that has a length of 1.
 
 CHARACTERS, CODEPOINTS, AND JAVASCRIPT STRINGS
@@ -230,7 +230,7 @@ Most string-manipulation methods defined by JavaScript operate on 16-bit values,
 
 In ES6, however, strings are iterable, and if you use the for/of loop or ... operator with a string, it will iterate the actual characters of the string, not the 16-bit values.
 
-3.3.1 String Literals
+### 3.3.1 String Literals
 To include a string in a JavaScript program, simply enclose the characters of the string within a matched pair of single or double quotes or backticks (' or " or `). Double-quote characters and backticks may be contained within strings delimited by single-quote characters, and similarly for strings delimited by double quotes and backticks. Here are examples of string literals:
 
 ""  // The empty string: it has zero characters
@@ -260,7 +260,7 @@ Note that when you use single quotes to delimit your strings, you must be carefu
 In client-side JavaScript programming, JavaScript code may contain strings of HTML code, and HTML code may contain strings of JavaScript code. Like JavaScript, HTML uses either single or double quotes to delimit its strings. Thus, when combining JavaScript and HTML, it is a good idea to use one style of quotes for JavaScript and the other style for HTML. In the following example, the string “Thank you” is single-quoted within a JavaScript expression, which is then double-quoted within an HTML event-handler attribute:
 
 <button onclick="alert('Thank you')">Click Me</button>
-3.3.2 Escape Sequences in String Literals
+### 3.3.2 Escape Sequences in String Literals
 The backslash character (\) has a special purpose in JavaScript strings. Combined with the character that follows it, it represents a character that is not otherwise representable within the string. For example, \n is an escape sequence that represents a newline character.
 
 Another example, mentioned earlier, is the \' escape, which represents the single quote (or apostrophe) character. This escape sequence is useful when you need to include an apostrophe in a string literal that is contained within single quotes. You can see why these are called escape sequences: the backslash allows you to escape from the usual interpretation of the single-quote character. Instead of using it to mark the end of the string, you use it as an apostrophe:
@@ -324,7 +324,7 @@ The Unicode character specified by the codepoint n, where n is one to six hexade
 
 If the \ character precedes any character other than those shown in Table 3-1, the backslash is simply ignored (although future versions of the language may, of course, define new escape sequences). For example, \# is the same as #. Finally, as noted earlier, ES5 allows a backslash before a line break to break a string literal across multiple lines.
 
-3.3.3 Working with Strings
+### 3.3.3 Working with Strings
 One of the built-in features of JavaScript is the ability to concatenate strings. If you use the + operator with numbers, it adds them. But if you use this operator on strings, it joins them by appending the second to the first. For example:
 
 let msg = "Hello, " + "world";   // Produces the string "Hello, world"
@@ -389,7 +389,7 @@ Strings can also be treated like read-only arrays, and you can access individual
 let s = "hello, world";
 s[0]                  // => "h"
 s[s.length-1]         // => "d"
-3.3.4 Template Literals
+### 3.3.4 Template Literals
 In ES6 and later, string literals can be delimited with backticks:
 
 let s = `hello world`;
@@ -420,7 +420,7 @@ Note that even though the tag portion of a tagged template literal is a function
 
 The ability to define your own template tag functions is a powerful feature of JavaScript. These functions do not need to return strings, and they can be used like constructors, as if defining a new literal syntax for the language. We’ll see an example in §14.5.
 
-3.3.5 Pattern Matching
+### 3.3.5 Pattern Matching
 JavaScript defines a datatype known as a regular expression (or RegExp) for describing and matching patterns in strings of text. RegExps are not one of the fundamental datatypes in JavaScript, but they have a literal syntax like numbers and strings do, so they sometimes seem like they are fundamental. The grammar of regular expression literals is complex and the API they define is nontrivial. They are documented in detail in §11.3. Because RegExps are powerful and commonly used for text processing, however, this section provides a brief overview.
 
 Text between a pair of slashes constitutes a regular expression literal. The second slash in the pair can also be followed by one or more letters, which modify the meaning of the pattern. For example:
@@ -437,7 +437,7 @@ text.search(pattern)             // => 9: position of first match
 text.match(pattern)              // => ["1", "2", "3"]: array of all matches
 text.replace(pattern, "#")       // => "testing: #, #, #"
 text.split(/\D+/)                // => ["","1","2","3"]: split on nondigits
-3.4 Boolean Values
+## 3.4 Boolean Values
 A boolean value represents truth or falsehood, on or off, yes or no. There are only two possible values of this type. The reserved words true and false evaluate to these two values.
 
 Boolean values are generally the result of comparisons you make in your JavaScript programs. For example:
@@ -481,7 +481,7 @@ if ((x === 0 && y === 0) || !(z === 0)) {
 }
 Full details on these operators are in §4.10.
 
-3.5 null and undefined
+## 3.5 null and undefined
 null is a language keyword that evaluates to a special value that is usually used to indicate the absence of a value. Using the typeof operator on null returns the string “object”, indicating that null can be thought of as a special object value that indicates “no object”. In practice, however, null is typically regarded as the sole member of its own type, and it can be used to indicate “no value” for numbers and strings as well as objects. Most programming languages have an equivalent to JavaScript’s null: you may be familiar with it as NULL, nil, or None.
 
 JavaScript also has a second value that indicates absence of value. The undefined value represents a deeper kind of absence. It is the value of variables that have not been initialized and the value you get when you query the value of an object property or array element that does not exist. The undefined value is also the return value of functions that do not explicitly return a value and the value of function parameters for which no argument is passed. undefined is a predefined global constant (not a language keyword like null, though this is not an important distinction in practice) that is initialized to the undefined value. If you apply the typeof operator to the undefined value, it returns “undefined”, indicating that this value is the sole member of a special type.
@@ -490,7 +490,7 @@ Despite these differences, null and undefined both indicate an absence of value 
 
 I consider undefined to represent a system-level, unexpected, or error-like absence of value and null to represent a program-level, normal, or expected absence of value. I avoid using null and undefined when I can, but if I need to assign one of these values to a variable or property or pass or return one of these values to or from a function, I usually use null. Some programmers strive to avoid null entirely and use undefined in its place wherever they can.
 
-3.6 Symbols
+## 3.6 Symbols
 Symbols were introduced in ES6 to serve as non-string property names. To understand Symbols, you need to know that JavaScript’s fundamental Object type is an unordered collection of properties, where each property has a name and a value. Property names are typically (and until ES6, were exclusively) strings. But in ES6 and later, Symbols can also serve this purpose:
 
 let strname = "string name";      // A string to use as a property name
@@ -519,7 +519,7 @@ let t = Symbol.for("shared");
 s === t          // => true
 s.toString()     // => "Symbol(shared)"
 Symbol.keyFor(t) // => "shared"
-3.7 The Global Object
+## 3.7 The Global Object
 The preceding sections have explained JavaScript’s primitive types and values. Object types—objects, arrays, and functions—are covered in chapters of their own later in this book. But there is one very important object value that we must cover now. The global object is a regular JavaScript object that serves a very important purpose: the properties of this object are the globally defined identifiers that are available to a JavaScript program. When the JavaScript interpreter starts (or whenever a web browser loads a new page), it creates a new global object and gives it an initial set of properties that define:
 
 Global constants like undefined, Infinity, and NaN
@@ -538,7 +538,7 @@ In web browsers, the Window object serves as the global object for all JavaScrip
 
 ES2020 finally defines globalThis as the standard way to refer to the global object in any context. As of early 2020, this feature has been implemented by all modern browsers and by Node.
 
-3.8 Immutable Primitive Values and Mutable Object References
+## 3.8 Immutable Primitive Values and Mutable Object References
 There is a fundamental difference in JavaScript between primitive values (undefined, null, booleans, numbers, and strings) and objects (including arrays and functions). Primitives are immutable: there is no way to change (or “mutate”) a primitive value. This is obvious for numbers and booleans—it doesn’t even make sense to change the value of a number. It is not so obvious for strings, however. Since strings are like arrays of characters, you might expect to be able to alter the character at any specified index. In fact, JavaScript does not allow this, and all string methods that appear to return a modified string are, in fact, returning a new string value. For example:
 
 let s = "hello";   // Start with some lowercase text
@@ -586,7 +586,7 @@ function equalArrays(a, b) {
     }
     return true;                             // Otherwise they are equal
 }
-3.9 Type Conversions
+## 3.9 Type Conversions
 JavaScript is very flexible about the types of values it requires. We’ve seen this for booleans: when JavaScript expects a boolean value, you may supply a value of any type, and JavaScript will convert it as needed. Some values (“truthy” values) convert to true and others (“falsy” values) convert to false. The same is true for other types: if JavaScript wants a string, it will convert whatever value you give it to a string. If JavaScript wants a number, it will try to convert the value you give it to a number (or to NaN if it cannot perform a meaningful conversion).
 
 Some examples:
@@ -725,7 +725,7 @@ The primitive-to-primitive conversions shown in the table are relatively straigh
 
 Object-to-primitive conversion is somewhat more complicated, and it is the subject of §3.9.3.
 
-3.9.1 Conversions and Equality
+### 3.9.1 Conversions and Equality
 JavaScript has two operators that test whether two values are equal. The “strict equality operator,” ===, does not consider its operands to be equal if they are not of the same type, and this is almost always the right operator to use when coding. But because JavaScript is so flexible with type conversions, it also defines the == operator with a flexible definition of equality. All of the following comparisons are true, for example:
 
 null == undefined // => true: These two values are treated as equal.
@@ -736,7 +736,7 @@ null == undefined // => true: These two values are treated as equal.
 
 Keep in mind that convertibility of one value to another does not imply equality of those two values. If undefined is used where a boolean value is expected, for example, it will convert to false. But this does not mean that undefined == false. JavaScript operators and statements expect values of various types and perform conversions to those types. The if statement converts undefined to false, but the == operator never attempts to convert its operands to booleans.
 
-3.9.2 Explicit Conversions
+### 3.9.2 Explicit Conversions
 Although JavaScript performs many type conversions automatically, you may sometimes need to perform an explicit conversion, or you may prefer to make the conversions explicit to keep your code clearer.
 
 The simplest way to perform an explicit type conversion is to use the Boolean(), Number(), and String() functions:
@@ -794,7 +794,7 @@ parseInt("ff", 16)    // => 255: (15*16 + 15)
 parseInt("zz", 36)    // => 1295: (35*36 + 35)
 parseInt("077", 8)    // => 63: (7*8 + 7)
 parseInt("077", 10)   // => 77: (7*10 + 7)
-3.9.3 Object to Primitive Conversions
+### 3.9.3 Object to Primitive Conversions
 The previous sections have explained how you can explicitly convert values of one type to another type and have explained JavaScript’s implicit conversions of values from one primitive type to another primitive type. This section covers the complicated rules that JavaScript uses to convert objects to primitive values. It is long and obscure, and if this is your first reading of this chapter, you should feel free to skip ahead to §3.10.
 
 One reason for the complexity of JavaScript’s object-to-primitive conversions is that some types of objects have more than one primitive representation. Date objects, for example, can be represented as strings or as numeric timestamps. The JavaScript specification defines three fundamental algorithms for converting objects to primitive values:
@@ -868,12 +868,12 @@ Number([])    // => 0: this is unexpected!
 Number([99])  // => 99: really?
 The object-to-number conversion first converts the object to a primitive using the prefer-number algorithm, then converts the resulting primitive value to a number. The prefer-number algorithm tries valueOf() first and then falls back on toString(). But the Array class inherits the default valueOf() method, which does not return a primitive value. So when we try to convert an array to a number, we end up invoking the toString() method of the array. Empty arrays convert to the empty string. And the empty string converts to the number 0. An array with a single element converts to the same string that that one element does. If an array contains a single number, that number is converted to a string, and then back to a number.
 
-3.10 Variable Declaration and Assignment
+## 3.10 Variable Declaration and Assignment
 One of the most fundamental techniques of computer programming is the use of names—or identifiers—to represent values. Binding a name to a value gives us a way to refer to that value and use it in the programs we write. When we do this, we typically say that we are assigning a value to a variable. The term “variable” implies that new values can be assigned: that the value associated with the variable may vary as our program runs. If we permanently assign a value to a name, then we call that name a constant instead of a variable.
 
 Before you can use a variable or constant in a JavaScript program, you must declare it. In ES6 and later, this is done with the let and const keywords, which we explain next. Prior to ES6, variables were declared with var, which is more idiosyncratic and is explained later on in this section.
 
-3.10.1 Declarations with let and const
+### 3.10.1 Declarations with let and const
 In modern JavaScript (ES6 and later), variables are declared with the let keyword, like this:
 
 let i;
@@ -931,7 +931,7 @@ If you’re used to statically typed languages such as C or Java, you may think 
 
 let i = 10;
 i = "ten";
-3.10.2 Variable Declarations with var
+### 3.10.2 Variable Declarations with var
 In versions of JavaScript before ES6, the only way to declare a variable is with the var keyword, and there is no way to declare constants. The syntax of var is just like the syntax of let:
 
 var x;
@@ -952,7 +952,7 @@ In strict mode (§5.6.3), if you attempt to use an undeclared variable, you’ll
 
 Global variables created in this accidental way are like global variables declared with var: they define properties of the global object. But unlike the properties defined by proper var declarations, these properties can be deleted with the delete operator (§4.13.4).
 
-3.10.3 Destructuring Assignment
+### 3.10.3 Destructuring Assignment
 ES6 implements a kind of compound declaration and assignment syntax known as destructuring assignment. In a destructuring assignment, the value on the righthand side of the equals sign is an array or object (a “structured” value), and the lefthand side specifies one or more variable names using a syntax that mimics array and object literal syntax. When a destructuring assignment occurs, one or more values are extracted (“destructured”) from the value on the right and stored into the variables named on the left. Destructuring assignment is perhaps most commonly used to initialize variables as part of a const, let, or var declaration statement, but it can also be done in regular assignment expressions (with variables that have already been declared). And, as we’ll see in §8.3.5, destructuring can also be used when defining the parameters to a function.
 
 Here are simple destructuring assignments using arrays of values:
@@ -1034,7 +1034,7 @@ let [{x: x1, y: y1}, {x: x2, y: y2}] = points;
 
 // Check your destructuring syntax by flipping the assignment around
 let points2 = [{x: x1, y: y1}, {x: x2, y: y2}]; // points2 == points
-3.11 Summary
+## 3.11 Summary
 Some key points to remember about this chapter:
 
 How to write and manipulate numbers and strings of text in JavaScript.

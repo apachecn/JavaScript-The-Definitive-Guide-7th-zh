@@ -5,7 +5,7 @@ The most common way to build a complex expression out of simpler expressions is 
 
 This chapter documents all of JavaScript’s operators, and it also explains expressions (such as array indexing and function invocation) that do not use operators. If you already know another programming language that uses C-style syntax, you’ll find that the syntax of most of JavaScript’s expressions and operators is already familiar to you.
 
-4.1 Primary Expressions
+## 4.1 Primary Expressions
 The simplest expressions, known as primary expressions, are those that stand alone—they do not include any simpler expressions. Primary expressions in JavaScript are constant or literal values, certain language keywords, and variable references.
 
 Literals are constant values that are embedded directly in your program. They look like these:
@@ -30,7 +30,7 @@ sum           // Evaluates to the value of the variable sum.
 undefined     // The value of the "undefined" property of the global object
 When any identifier appears by itself in a program, JavaScript assumes it is a variable or constant or property of the global object and looks up its value. If no variable with that name exists, an attempt to evaluate a nonexistent variable throws a ReferenceError instead.
 
-4.2 Object and Array Initializers
+## 4.2 Object and Array Initializers
 Object and array initializers are expressions whose value is a newly created object or array. These initializer expressions are sometimes called object literals and array literals. Unlike true literals, however, they are not primary expressions, because they include a number of subexpressions that specify property and element values. Array initializers have a slightly simpler syntax, and we’ll begin with those.
 
 An array initializer is a comma-separated list of expressions contained within square brackets. The value of an array initializer is a newly created array. The elements of this new array are initialized to the values of the comma-separated expressions:
@@ -60,14 +60,14 @@ let rectangle = {
 };
 We’ll see object and array initializers again in Chapters 6 and 7.
 
-4.3 Function Definition Expressions
+## 4.3 Function Definition Expressions
 A function definition expression defines a JavaScript function, and the value of such an expression is the newly defined function. In a sense, a function definition expression is a “function literal” in the same way that an object initializer is an “object literal.” A function definition expression typically consists of the keyword function followed by a comma-separated list of zero or more identifiers (the parameter names) in parentheses and a block of JavaScript code (the function body) in curly braces. For example:
 
 // This function returns the square of the value passed to it.
 let square = function(x) { return x * x; };
 A function definition expression can also include a name for the function. Functions can also be defined using a function statement rather than a function expression. And in ES6 and later, function expressions can use a compact new “arrow function” syntax. Complete details on function definition are in Chapter 8.
 
-4.4 Property Access Expressions
+## 4.4 Property Access Expressions
 A property access expression evaluates to the value of an object property or an array element. JavaScript defines two syntaxes for property access:
 
 expression . identifier
@@ -88,7 +88,7 @@ The .identifier syntax is the simpler of the two property access options, but no
 
 Objects and their properties are covered in detail in Chapter 6, and arrays and their elements are covered in Chapter 7.
 
-4.4.1 Conditional Property Access
+### 4.4.1 Conditional Property Access
 ES2020 adds two new kinds of property access expressions:
 
 expression ?. identifier
@@ -121,7 +121,7 @@ index           // => 1: not incremented because ?.[] short-circuits
 a[index++]      // !TypeError: can't index undefined.
 Conditional property access with ?. and ?.[] is one of the newest features of JavaScript. As of early 2020, this new syntax is supported in the current or beta versions of most major browsers.
 
-4.5 Invocation Expressions
+## 4.5 Invocation Expressions
 An invocation expression is JavaScript’s syntax for calling (or executing) a function or method. It starts with a function expression that identifies the function to be called. The function expression is followed by an open parenthesis, a comma-separated list of zero or more argument expressions, and a close parenthesis. Some examples:
 
 f(0)            // f is the function expression; 0 is the argument expression.
@@ -131,7 +131,7 @@ When an invocation expression is evaluated, the function expression is evaluated
 
 Every invocation expression includes a pair of parentheses and an expression before the open parenthesis. If that expression is a property access expression, then the invocation is known as a method invocation. In method invocations, the object or array that is the subject of the property access becomes the value of the this keyword while the body of the function is being executed. This enables an object-oriented programming paradigm in which functions (which we call “methods” when used this way) operate on the object of which they are part. See Chapter 9 for details.
 
-4.5.1 Conditional Invocation
+### 4.5.1 Conditional Invocation
 In ES2020, you can also invoke a function using ?.() instead of (). Normally when you invoke a function, if the expression to the left of the parentheses is null or undefined or any other non-function, a TypeError is thrown. With the new ?.() invocation syntax, if the expression to the left of the ?. evaluates to null or undefined, then the entire invocation expression evaluates to undefined and no exception is thrown.
 
 Array objects have a sort() method that can optionally be passed a function argument that defines the desired sorting order for the array elements. Before ES2020, if you wanted to write a method like sort() that takes an optional function argument, you would typically use an if statement to check that the function argument was defined before invoking it in the body of the if:
@@ -169,7 +169,7 @@ In the first expression, o must be an object with a property m and the value of 
 
 Conditional invocation with ?.() is one of the newest features of JavaScript. As of the first months of 2020, this new syntax is supported in the current or beta versions of most major browsers.
 
-4.6 Object Creation Expressions
+## 4.6 Object Creation Expressions
 An object creation expression creates a new object and invokes a function (called a constructor) to initialize the properties of that object. Object creation expressions are like invocation expressions except that they are prefixed with the keyword new:
 
 new Object()
@@ -180,7 +180,7 @@ new Object
 new Date
 The value of an object creation expression is the newly created object. Constructors are explained in more detail in Chapter 9.
 
-4.7 Operator Overview
+## 4.7 Operator Overview
 Operators are used for JavaScript’s arithmetic expressions, comparison expressions, logical expressions, assignment expressions, and more. Table 4-1 summarizes the operators and serves as a convenient reference.
 
 Note that most operators are represented by punctuation characters such as + and =. Some, however, are represented by keywords such as delete and instanceof. Keyword operators are regular operators, just like those expressed with punctuation; they simply have a less succinct syntax.
@@ -599,7 +599,7 @@ Operator precedence and associativity specify the order in which operations are 
 
 Order of evaluation only makes a difference if any of the expressions being evaluated has side effects that affect the value of another expression. If expression x increments a variable that is used by expression z, then the fact that x is evaluated before z is important.
 
-4.8 Arithmetic Expressions
+## 4.8 Arithmetic Expressions
 This section covers the operators that perform arithmetic or other numerical manipulations on their operands. The exponentiation, multiplication, division, and subtraction operators are straightforward and are covered first. The addition operator gets a subsection of its own because it can also perform string concatenation and has some unusual type conversion rules. The unary operators and the bitwise operators are also covered in subsections of their own.
 
 Most of these arithmetic operators (except as noted as follows) can be used with BigInt (see §3.2.5) operands or with regular numbers, as long as you don’t mix the two types.
@@ -614,7 +614,7 @@ The % operator computes the first operand modulo the second operand. In other wo
 
 While the modulo operator is typically used with integer operands, it also works for floating-point values. For example, 6.5 % 2.1 evaluates to 0.2.
 
-4.8.1 The + Operator
+### 4.8.1 The + Operator
 The binary + operator adds numeric operands or concatenates string operands:
 
 1 + 2                        // => 3
@@ -647,7 +647,7 @@ For example:
 1 + (2 + " blind mice")  // => "12 blind mice"
 The first line has no parentheses, and the + operator has left-to-right associativity, so the two numbers are added first, and their sum is concatenated with the string. In the second line, parentheses alter this order of operations: the number 2 is concatenated with the string to produce a new string. Then the number 1 is concatenated with the new string to produce the final result.
 
-4.8.2 Unary Arithmetic Operators
+### 4.8.2 Unary Arithmetic Operators
 Unary operators modify the value of a single operand to produce a new value. In JavaScript, the unary operators all have high precedence and are all right-associative. The arithmetic unary operators described in this section (+, -, ++, and --) all convert their single operand to a number, if necessary. Note that the punctuation characters + and - are used as both unary and binary operators.
 
 The unary arithmetic operators are the following:
@@ -674,7 +674,7 @@ This operator, in both its pre- and post-increment forms, is most commonly used 
 Decrement (--)
 The -- operator expects an lvalue operand. It converts the value of the operand to a number, subtracts 1, and assigns the decremented value back to the operand. Like the ++ operator, the return value of -- depends on its position relative to the operand. When used before the operand, it decrements and returns the decremented value. When used after the operand, it decrements the operand but returns the undecremented value. When used after its operand, no line break is allowed between the operand and the operator.
 
-4.8.3 Bitwise Operators
+### 4.8.3 Bitwise Operators
 The bitwise operators perform low-level manipulation of the bits in the binary representation of numbers. Although they do not perform traditional arithmetic operations, they are categorized as arithmetic operators here because they operate on numeric operands and return a numeric value. Four of these operators perform Boolean algebra on the individual bits of the operands, behaving as if each bit in each operand were a boolean value (1=true, 0=false). The other three bitwise operators are used to shift bits left and right. These operators are not commonly used in JavaScript programming, and if you are not familiar with the binary representation of integers, including the two’s complement representation of negative integers, you can probably skip this section.
 
 The bitwise operators expect integer operands and behave as if those values were represented as 32-bit integers rather than 64-bit floating-point values. These operators convert their operands to numbers, if necessary, and then coerce the numeric values to 32-bit integers by dropping any fractional part and any bits beyond the 32nd. The shift operators require a right-side operand between 0 and 31. After converting this operand to an unsigned 32-bit integer, they drop any bits beyond the 5th, which yields a number in the appropriate range. Surprisingly, NaN, Infinity, and -Infinity all convert to 0 when used as operands of these bitwise operators.
@@ -702,10 +702,10 @@ The >> operator moves all bits in its first operand to the right by the number o
 Shift right with zero fill (>>>)
 The >>> operator is just like the >> operator, except that the bits shifted in on the left are always zero, regardless of the sign of the first operand. This is useful when you want to treat signed 32-bit values as if they are unsigned integers. −1 >> 4 evaluates to −1, but −1 >>> 4 evaluates to 0x0FFFFFFF, for example. This is the only one of the JavaScript bitwise operators that cannot be used with BigInt values. BigInt does not represent negative numbers by setting the high bit the way that 32-bit integers do, and this operator only makes sense for that particular two’s complement representation.
 
-4.9 Relational Expressions
+## 4.9 Relational Expressions
 This section describes JavaScript’s relational operators. These operators test for a relationship (such as “equals,” “less than,” or “property of”) between two values and return true or false depending on whether that relationship exists. Relational expressions always evaluate to a boolean value, and that value is often used to control the flow of program execution in if, while, and for statements (see Chapter 5). The subsections that follow document the equality and inequality operators, the comparison operators, and JavaScript’s other two relational operators, in and instanceof.
 
-4.9.1 Equality and Inequality Operators
+### 4.9.1 Equality and Inequality Operators
 The == and === operators check whether two values are the same, using two different definitions of sameness. Both operators accept operands of any type, and both return true if their operands are the same and false if they are different. The === operator is known as the strict equality operator (or sometimes the identity operator), and it checks whether its two operands are “identical” using a strict definition of sameness. The == operator is known as the equality operator; it checks whether its two operands are “equal” using a more relaxed definition of sameness that allows type conversions.
 
 The != and !== operators test for the exact opposite of the == and === operators. The != inequality operator returns false if two values are equal to each other according to == and returns true otherwise. The !== operator returns false if two values are strictly equal to each other and returns true otherwise. As you’ll see in §4.10, the ! operator computes the Boolean NOT operation. This makes it easy to remember that != and !== stand for “not equal to” and “not strictly equal to.”
@@ -756,7 +756,7 @@ As an example of testing for equality, consider the comparison:
 "1" == true  // => true
 This expression evaluates to true, indicating that these very different-looking values are in fact equal. The boolean value true is first converted to the number 1, and the comparison is done again. Next, the string "1" is converted to the number 1. Since both values are now the same, the comparison returns true.
 
-4.9.2 Comparison Operators
+### 4.9.2 Comparison Operators
 The comparison operators test the relative order (numerical or alphabetical) of their two operands:
 
 Less than (<)
@@ -796,7 +796,7 @@ Both the + operator and the comparison operators behave differently for numeric 
 "one" < 3    // => false: numeric comparison, "one" converted to NaN.
 Finally, note that the <= (less than or equal) and >= (greater than or equal) operators do not rely on the equality or strict equality operators for determining whether two values are “equal.” Instead, the less-than-or-equal operator is simply defined as “not greater than,” and the greater-than-or-equal operator is defined as “not less than.” The one exception occurs when either operand is (or converts to) NaN, in which case, all four comparison operators return false.
 
-4.9.3 The in Operator
+### 4.9.3 The in Operator
 The in operator expects a left-side operand that is a string, symbol, or value that can be converted to a string. It expects a right-side operand that is an object. It evaluates to true if the left-side value is the name of a property of the right-side object. For example:
 
 let point = {x: 1, y: 1};  // Define an object
@@ -808,7 +808,7 @@ let data = [7,8,9];        // An array with elements (indices) 0, 1, and 2
 "0" in data                // => true: array has an element "0"
 1 in data                  // => true: numbers are converted to strings
 3 in data                  // => false: no element 3
-4.9.4 The instanceof Operator
+### 4.9.4 The instanceof Operator
 The instanceof operator expects a left-side operand that is an object and a right-side operand that identifies a class of objects. The operator evaluates to true if the left-side object is an instance of the right-side class and evaluates to false otherwise. Chapter 9 explains that, in JavaScript, classes of objects are defined by the constructor function that initializes them. Thus, the right-side operand of instanceof should be a function. Here are examples:
 
 let d = new Date();  // Create a new object with the Date() constructor
@@ -823,10 +823,10 @@ Note that all objects are instances of Object. instanceof considers the “super
 
 In order to understand how the instanceof operator works, you must understand the “prototype chain.” This is JavaScript’s inheritance mechanism, and it is described in §6.3.2. To evaluate the expression o instanceof f, JavaScript evaluates f.prototype, and then looks for that value in the prototype chain of o. If it finds it, then o is an instance of f (or of a subclass of f) and the operator returns true. If f.prototype is not one of the values in the prototype chain of o, then o is not an instance of f and instanceof returns false.
 
-4.10 Logical Expressions
+## 4.10 Logical Expressions
 The logical operators &&, ||, and ! perform Boolean algebra and are often used in conjunction with the relational operators to combine two relational expressions into one more complex expression. These operators are described in the subsections that follow. In order to fully understand them, you may want to review the concept of “truthy” and “falsy” values introduced in §3.4.
 
-4.10.1 Logical AND (&&)
+### 4.10.1 Logical AND (&&)
 The && operator can be understood at three different levels. At the simplest level, when used with boolean operands, && performs the Boolean AND operation on the two values: it returns true if and only if both its first operand and its second operand are true. If one or both of these operands is false, it returns false.
 
 && is often used as a conjunction to join two relational expressions:
@@ -854,7 +854,7 @@ In general, you must be careful whenever you write an expression with side effec
 
 Despite the somewhat complex way that this operator actually works, it is most commonly used as a simple Boolean algebra operator that works on truthy and falsy values.
 
-4.10.2 Logical OR (||)
+### 4.10.2 Logical OR (||)
 The || operator performs the Boolean OR operation on its two operands. If one or both operands is truthy, it returns a truthy value. If both operands are falsy, it returns a falsy value.
 
 Although the || operator is most often used simply as a Boolean OR operator, it, like the && operator, has more complex behavior. It starts by evaluating its first operand, the expression on its left. If the value of this first operand is truthy, it short-circuits and returns that truthy value without ever evaluating the expression on the right. If, on the other hand, the value of the first operand is falsy, then || evaluates its second operand and returns the value of that expression.
@@ -877,7 +877,7 @@ function copy(o, p) {
 }
 In ES6 and later, however, this trick is no longer needed because the default parameter value could simply be written in the function definition itself: function copy(o, p={}) { ... }.
 
-4.10.3 Logical NOT (!)
+### 4.10.3 Logical NOT (!)
 The ! operator is a unary operator; it is placed before a single operand. Its purpose is to invert the boolean value of its operand. For example, if x is truthy, !x evaluates to false. If x is falsy, then !x is true.
 
 Unlike the && and || operators, the ! operator converts its operand to a boolean value (using the rules described in Chapter 3) before inverting the converted value. This means that ! always returns true or false and that you can convert any value x to its equivalent boolean value by applying this operator twice: !!x (see §3.9.2).
@@ -887,7 +887,7 @@ As a unary operator, ! has high precedence and binds tightly. If you want to inv
 // DeMorgan's Laws
 !(p && q) === (!p || !q)  // => true: for all values of p and q
 !(p || q) === (!p && !q)  // => true: for all values of p and q
-4.11 Assignment Expressions
+## 4.11 Assignment Expressions
 JavaScript uses the = operator to assign a value to a variable or property. For example:
 
 i = 0;     // Set the variable i to 0.
@@ -902,7 +902,7 @@ If you do this, be sure you are clear on the difference between the = and === op
 The assignment operator has right-to-left associativity, which means that when multiple assignment operators appear in an expression, they are evaluated from right to left. Thus, you can write code like this to assign a single value to multiple variables:
 
 i = j = k = 0;       // Initialize 3 variables to 0
-4.11.1 Assignment with Operation
+### 4.11.1 Assignment with Operation
 Besides the normal = assignment operator, JavaScript supports a number of other assignment operators that provide shortcuts by combining assignment with some other operation. For example, the += operator performs addition and assignment. The following expression:
 
 total += salesTax;
@@ -997,7 +997,7 @@ In the first line, the expression a is evaluated once. In the second, it is eval
 
 data[i++] *= 2;
 data[i++] = data[i++] * 2;
-4.12 Evaluation Expressions
+## 4.12 Evaluation Expressions
 Like many interpreted languages, JavaScript has the ability to interpret strings of JavaScript source code, evaluating them to produce a value. JavaScript does this with the global function eval():
 
 eval("3+2")    // => 5
@@ -1012,7 +1012,7 @@ let f = eval;
 let g = f;
 If this is allowed, then the interpreter can’t know for sure which functions call eval(), so it cannot optimize aggressively. This issue could have been avoided if eval() was an operator (and a reserved word). We’ll learn (in §4.12.2 and §4.12.3) about restrictions placed on eval() to make it more operator-like.
 
-4.12.1 eval()
+### 4.12.1 eval()
 eval() expects one argument. If you pass any value other than a string, it simply returns that value. If you pass a string, it attempts to parse the string as JavaScript code, throwing a SyntaxError if it fails. If it successfully parses the string, then it evaluates the code and returns the value of the last expression or statement in the string or undefined if the last expression or statement had no value. If the evaluated string throws an exception, that exception propogates from the call to eval().
 
 The key thing about eval() (when invoked like this) is that it uses the variable environment of the code that calls it. That is, it looks up the values of variables and defines new variables and functions in the same way that local code does. If a function defines a local variable x and then calls eval("x"), it will obtain the value of the local variable. If it calls eval("x=1"), it changes the value of the local variable. And if the function calls eval("var y = 3;"), it declares a new local variable y. On the other hand, if the evaluated string uses let or const, the variable or constant declared will be local to the evaluation and will not be defined in the calling environment.
@@ -1024,7 +1024,7 @@ If you call eval() from top-level code, it operates on global variables and glob
 
 Note that the string of code you pass to eval() must make syntactic sense on its own: you cannot use it to paste code fragments into a function. It makes no sense to write eval("return;"), for example, because return is only legal within functions, and the fact that the evaluated string uses the same variable environment as the calling function does not make it part of that function. If your string would make sense as a standalone script (even a very short one like x=0 ), it is legal to pass to eval(). Otherwise, eval() will throw a SyntaxError.
 
-4.12.2 Global eval()
+### 4.12.2 Global eval()
 It is the ability of eval() to change local variables that is so problematic to JavaScript optimizers. As a workaround, however, interpreters simply do less optimization on any function that calls eval(). But what should a JavaScript interpreter do, however, if a script defines an alias for eval() and then calls that function by another name? The JavaScript specification declares that when eval() is invoked by any name other than “eval”, it should evaluate the string as if it were top-level global code. The evaluated code may define new global variables or global functions, and it may set global variables, but it will not use or modify any variables local to the calling function, and will not, therefore, interfere with local optimizations.
 
 A “direct eval” is a call to the eval() function with an expression that uses the exact, unqualified name “eval” (which is beginning to feel like a reserved word). Direct calls to eval() use the variable environment of the calling context. Any other call—an indirect call—uses the global object as its variable environment and cannot read, write, or define local variables or functions. (Both direct and indirect calls can define new variables only with var. Uses of let and const inside an evaluated string create variables and constants that are local to the evaluation and do not alter the calling or global environment.)
@@ -1047,15 +1047,15 @@ console.log(f(), x); // Local variable changed: prints "localchanged global":
 console.log(g(), y); // Global variable changed: prints "local globalchanged":
 Notice that the ability to do a global eval is not just an accommodation to the needs of the optimizer; it is actually a tremendously useful feature that allows you to execute strings of code as if they were independent, top-level scripts. As noted at the beginning of this section, it is rare to truly need to evaluate a string of code. But if you do find it necessary, you are more likely to want to do a global eval than a local eval.
 
-4.12.3 Strict eval()
+### 4.12.3 Strict eval()
 Strict mode (see §5.6.3) imposes further restrictions on the behavior of the eval() function and even on the use of the identifier “eval”. When eval() is called from strict-mode code, or when the string of code to be evaluated itself begins with a “use strict” directive, then eval() does a local eval with a private variable environment. This means that in strict mode, evaluated code can query and set local variables, but it cannot define new variables or functions in the local scope.
 
 Furthermore, strict mode makes eval() even more operator-like by effectively making “eval” into a reserved word. You are not allowed to overwrite the eval() function with a new value. And you are not allowed to declare a variable, function, function parameter, or catch block parameter with the name “eval”.
 
-4.13 Miscellaneous Operators
+## 4.13 Miscellaneous Operators
 JavaScript supports a number of other miscellaneous operators, described in the following sections.
 
-4.13.1 The Conditional Operator (?:)
+### 4.13.1 The Conditional Operator (?:)
 The conditional operator is the only ternary operator (three operands) in JavaScript and is sometimes actually called the ternary operator. This operator is sometimes written ?:, although it does not appear quite that way in code. Because this operator has three operands, the first goes before the ?, the second goes between the ? and the :, and the third goes after the :. It is used like this:
 
 x > 0 ? x : -x     // The absolute value of x
@@ -1072,7 +1072,7 @@ if (username) {
 } else {
     greeting += "there";
 }
-4.13.2 First-Defined (??)
+### 4.13.2 First-Defined (??)
 The first-defined operator ?? evaluates to its first defined operand: if its left operand is not null and not undefined, it returns that value. Otherwise, it returns the value of the right operand. Like the && and || operators, ?? is short-circuiting: it only evaluates its second operand if the first operand evaluates to null or undefined. If the expression a has no side effects, then the expression a ?? b is equivalent to:
 
 (a !== null && a !== undefined) ? a : b
@@ -1103,7 +1103,7 @@ a ?? (b || c)   // || first, then ??
 a ?? b || c     // SyntaxError: parentheses are required
 The ?? operator is defined by ES2020, and as of early 2020, is newly supported by current or beta versions of all major browsers. This operator is formally called the “nullish coalescing” operator, but I avoid that term because this operator selects one of its operands but does not “coalesce” them in any way that I can see.
 
-4.13.3 The typeof Operator
+### 4.13.3 The typeof Operator
 typeof is a unary operator that is placed before its single operand, which can be of any type. Its value is a string that specifies the type of the operand. Table 4-3 specifies the value of the typeof operator for any JavaScript value.
 
 Table 4-3. Values returned by the typeof operator
@@ -1154,7 +1154,7 @@ Although JavaScript functions are a kind of object, the typeof operator consider
 
 Because typeof evaluates to “object” for all object and array values other than functions, it is useful only to distinguish objects from other, primitive types. In order to distinguish one class of object from another, you must use other techniques, such as the instanceof operator (see §4.9.4), the class attribute (see §14.4.3), or the constructor property (see §9.2.2 and §14.3).
 
-4.13.4 The delete Operator
+### 4.13.4 The delete Operator
 delete is a unary operator that attempts to delete the object property or array element specified as its operand. Like the assignment, increment, and decrement operators, delete is typically used for its property deletion side effect and not for the value it returns. Some examples:
 
 let o = { x: 1, y: 2}; // Start with an object
@@ -1184,10 +1184,10 @@ delete o;
 delete Object.prototype;
 We’ll see the delete operator again in §6.4.
 
-4.13.5 The await Operator
+### 4.13.5 The await Operator
 await was introduced in ES2017 as a way to make asynchronous programming more natural in JavaScript. You will need to read Chapter 13 to understand this operator. Briefly, however, await expects a Promise object (representing an asynchronous computation) as its sole operand, and it makes your program behave as if it were waiting for the asynchronous computation to complete (but it does this without actually blocking, and it does not prevent other asynchronous operations from proceeding at the same time). The value of the await operator is the fulfillment value of the Promise object. Importantly, await is only legal within functions that have been declared asynchronous with the async keyword. Again, see Chapter 13 for full details.
 
-4.13.6 The void Operator
+### 4.13.6 The void Operator
 void is a unary operator that appears before its single operand, which may be of any type. This operator is unusual and infrequently used; it evaluates its operand, then discards the value and returns undefined. Since the operand value is discarded, using the void operator makes sense only if the operand has side effects.
 
 The void operator is so obscure that it is difficult to come up with a practical example of its use. One case would be when you want to define a function that returns nothing but also uses the arrow function shortcut syntax (see §8.1.3) where the body of the function is a single expression that is evaluated and returned. If you are evaluating the expression solely for its side effects and do not want to return its value, then the simplest thing is to use curly braces around the function body. But, as an alternative, you could also use the void operator in this case:
@@ -1196,7 +1196,7 @@ let counter = 0;
 const increment = () => void counter++;
 increment()   // => undefined
 counter       // => 1
-4.13.7 The comma Operator (,)
+### 4.13.7 The comma Operator (,)
 The comma operator is a binary operator whose operands may be of any type. It evaluates its left operand, evaluates its right operand, and then returns the value of the right operand. Thus, the following line:
 
 i=0, j=1, k=2;
@@ -1211,7 +1211,7 @@ The lefthand expression is always evaluated, but its value is discarded, which m
 for(let i=0,j=10; i < j; i++,j--) {
     console.log(i+j);
 }
-4.14 Summary
+## 4.14 Summary
 This chapter covers a wide variety of topics, and there is lots of reference material here that you may want to reread in the future as you continue to learn JavaScript. Some key points to remember, however, are these:
 
 Expressions are the phrases of a JavaScript program.
