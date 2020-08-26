@@ -29,8 +29,9 @@ The easiest way to try out a few lines of JavaScript is to open up the web devel
 
 js7e 0101
 Figure 1-1. The JavaScript console in Firefox’s Developer Tools
-Another way to try out JavaScript code is to download and install Node from https://nodejs.org. Once Node is installed on your system, you can simply open a Terminal window and type node to begin an interactive JavaScript session like this one:
 
+Another way to try out JavaScript code is to download and install Node from https://nodejs.org. Once Node is installed on your system, you can simply open a Terminal window and type node to begin an interactive JavaScript session like this one:
+```sh
 $ node
 Welcome to Node.js v12.13.0.
 Type ".help" for more information.
@@ -52,28 +53,33 @@ undefined
 true
 > (x > 3) || (y < 3)
 false
+```
 ## 1.2 Hello World
 When you are ready to start experimenting with longer chunks of code, these line-by-line interactive environments may no longer be suitable, and you will probably prefer to write your code in a text editor. From there, you can copy and paste to the JavaScript console or into a Node session. Or you can save your code to a file (the traditional filename extension for JavaScript code is .js) and then run that file of JavaScript code with Node:
-
+```sh
 $ node snippet.js
+```
 If you use Node in a noninteractive manner like this, it won’t automatically print out the value of all the code you run, so you’ll have to do that yourself. You can use the function console.log() to display text and other JavaScript values in your terminal window or in a browser’s developer tools console. So, for example, if you create a hello.js file containing this line of code:
-
+```js
 console.log("Hello World!");
+```
 and execute the file with node hello.js, you’ll see the message “Hello World!” printed out.
 
 If you want to see that same message printed out in the JavaScript console of a web browser, create a new file named hello.html, and put this text in it:
-
+```js
 <script src="hello.js"></script>
+```
 Then load hello.html into your web browser using a file:// URL like this one:
-
+```
 file:///Users/username/javascript/hello.html
+```
 Open the developer tools window to see the greeting in the console.
 
 ## 1.3 A Tour of JavaScript
 This section presents a quick introduction, through code examples, to the JavaScript language. After this introductory chapter, we dive into JavaScript at the lowest level: Chapter 2 explains things like JavaScript comments, semicolons, and the Unicode character set. Chapter 3 starts to get more interesting: it explains JavaScript variables and the values you can assign to those variables.
 
 Here’s some sample code to illustrate the highlights of those two chapters:
-
+```js
 // Anything following double slashes is an English-language comment.
 // Read the comments carefully: they explain the JavaScript code.
 
@@ -94,8 +100,9 @@ x = true;                  // A Boolean value.
 x = false;                 // The other Boolean value.
 x = null;                  // Null is a special value that means "no value."
 x = undefined;             // Undefined is another special value like null.
+```
 Two other very important types that JavaScript programs can manipulate are objects and arrays. These are the subjects of Chapters 6 and 7, but they are so important that you’ll see them many times before you reach those chapters:
-
+```js
 // JavaScript's most important datatype is the object.
 // An object is a collection of name/value pairs, or a string to value map.
 let book = {               // Objects are enclosed in curly braces.
@@ -131,6 +138,7 @@ let data = {                 // An object with 2 properties
     trial1: [[1,2], [3,4]],  // The value of each property is an array.
     trial2: [[2,3], [4,5]]   // The elements of the arrays are arrays.
 };
+```
 COMMENT SYNTAX IN CODE EXAMPLES
 You may have noticed in the preceding code that some of the comments begin with an arrow (=>). These show the value produced by the code before the comment and are my attempt to emulate an interactive JavaScript environment like a web browser console in a printed book.
 
@@ -143,7 +151,7 @@ You’ll see these comments used throughout the book.
 The syntax illustrated here for listing array elements within square braces or mapping object property names to property values inside curly braces is known as an initializer expression, and it is just one of the topics of Chapter 4. An expression is a phrase of JavaScript that can be evaluated to produce a value. For example, the use of . and [] to refer to the value of an object property or array element is an expression.
 
 One of the most common ways to form expressions in JavaScript is to use operators:
-
+```js
 // Operators act on values (the operands) to produce a new value.
 // Arithmetic operators are some of the simplest:
 3 + 2                      // => 5: addition
@@ -178,10 +186,11 @@ false === (x > y)          // => true: false is equal to false
 (x === 2) && (y === 3)     // => true: both comparisons are true. && is AND
 (x > 3) || (y < 3)         // => false: neither comparison is true. || is OR
 !(x === y)                 // => true: ! inverts a boolean value
+```
 If JavaScript expressions are like phrases, then JavaScript statements are like full sentences. Statements are the topic of Chapter 5. Roughly, an expression is something that computes a value but doesn’t do anything: it doesn’t alter the program state in any way. Statements, on the other hand, don’t have a value, but they do alter the state. You’ve seen variable declarations and assignment statements above. The other broad category of statement is control structures, such as conditionals and loops. You’ll see examples below, after we cover functions.
 
 A function is a named and parameterized block of JavaScript code that you define once, and can then invoke over and over again. Functions aren’t covered formally until Chapter 8, but like objects and arrays, you’ll see them many times before you get to that chapter. Here are some simple examples:
-
+```js
 // Functions are parameterized blocks of JavaScript code that we can invoke.
 function plus1(x) {        // Define a function named "plus1" with parameter "x"
     return x + 1;          // Return a value one larger than the value passed in
@@ -194,14 +203,16 @@ let square = function(x) { // Functions are values and can be assigned to vars
 };                         // Semicolon marks the end of the assignment.
 
 square(plus1(y))           // => 16: invoke two functions in one expression
+```
 In ES6 and later, there is a shorthand syntax for defining functions. This concise syntax uses => to separate the argument list from the function body, so functions defined this way are known as arrow functions. Arrow functions are most commonly used when you want to pass an unnamed function as an argument to another function. The preceding code looks like this when rewritten to use arrow functions:
-
+```js
 const plus1 = x => x + 1;   // The input x maps to the output x + 1
 const square = x => x * x;  // The input x maps to the output x * x
 plus1(y)                    // => 4: function invocation is the same
 square(plus1(y))            // => 16
+```
 When we use functions with objects, we get methods:
-
+```js
 // When functions are assigned to the properties of an object, we call
 // them "methods."  All JavaScript objects (including arrays) have methods:
 let a = [];                // Create an empty array
@@ -219,8 +230,9 @@ points.dist = function() { // Define a method to compute distance between points
                      b*b); // Math.sqrt() computes the square root
 };
 points.dist()              // => Math.sqrt(2): distance between our 2 points
+```
 Now, as promised, here are some functions whose bodies demonstrate common JavaScript control structure statements:
-
+```js
 // JavaScript statements include conditionals and loops using the syntax
 // of C, C++, Java, and other languages.
 function abs(x) {          // A function to compute the absolute value.
@@ -259,8 +271,9 @@ function factorial2(n) {   // Another version using a different loop
     return product;        // Return the factorial
 }
 factorial2(5)              // => 120: 1*2*3*4*5
+```
 JavaScript supports an object-oriented programming style, but it is significantly different than “classical” object-oriented programming languages. Chapter 9 covers object-oriented programming in JavaScript in detail, with lots of examples. Here is a very simple example that demonstrates how to define a JavaScript class to represent 2D geometric points. Objects that are instances of this class have a single method, named distance(), that computes the distance of the point from the origin:
-
+```js
 class Point {              // By convention, class names are capitalized.
     constructor(x, y) {    // Constructor function to initialize new instances.
         this.x = x;        // This keyword is the new object being initialized.
@@ -280,6 +293,7 @@ let p = new Point(1, 1);   // The geometric point (1,1).
 
 // Now use a method of the Point object p
 p.distance()               // => Math.SQRT2
+```
 This introductory tour of JavaScript’s fundamental syntax and capabilities ends here, but the book continues with self-contained chapters that cover additional features of the language:
 
 Chapter 10, Modules
@@ -308,7 +322,7 @@ Covers tools and language extensions that are worth knowing about because they a
 
 ## 1.4 Example: Character Frequency Histograms
 This chapter concludes with a short but nontrivial JavaScript program. Example 1-1 is a Node program that reads text from standard input, computes a character frequency histogram from that text, and then prints out the histogram. You could invoke the program like this to analyze the character frequency of its own source code:
-
+```sh
 $ node charfreq.js < charfreq.js
 T: ########### 11.22%
 E: ########## 10.15%
@@ -323,9 +337,11 @@ C: ### 3.36%
 L: ### 3.20%
 U: ### 3.08%
 /: ### 2.88%
+```
 This example uses a number of advanced JavaScript features and is intended to demonstrate what real-world JavaScript programs can look like. You should not expect to understand all of the code yet, but be assured that all of it will be explained in the chapters that follow.
 
 Example 1-1. Computing character frequency histograms with JavaScript
+```js
 /**
  * This Node program reads text from standard input, computes the frequency
  * of each letter in that text, and displays a histogram of the most
@@ -420,5 +436,6 @@ async function histogramFromStdin() {
 // This one final line of code is the main body of the program.
 // It makes a Histogram object from standard input, then prints the histogram.
 histogramFromStdin().then(histogram => { console.log(histogram.toString()); });
+```
 ## 1.5 Summary
 This book explains JavaScript from the bottom up. This means that we start with low-level details like comments, identifiers, variables, and types; then build to expressions, statements, objects, and functions; and then cover high-level language abstractions like classes and modules. I take the word definitive in the title of this book seriously, and the coming chapters explain the language at a level of detail that may feel off-putting at first. True mastery of JavaScript requires an understanding of the details, however, and I hope that you will make time to read this book cover to cover. But please don’t feel that you need to do that on your first reading. If you find yourself feeling bogged down in a section, simply skip to the next. You can come back and master the details once you have a working knowledge of the language as a whole.
