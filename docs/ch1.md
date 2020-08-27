@@ -55,8 +55,7 @@ The easiest way to try out a few lines of JavaScript is to open up the web devel
 
 > 尝试几行JavaScript的最简单方法是在web浏览器中打开web developer工具(使用F12、Ctrl-Shift-I或Command-Option-I)并选择Console选项卡。然后可以在提示符处键入代码，并在键入时查看结果。浏览器开发人员工具通常以窗格的形式出现在浏览器窗口的底部或右侧，但是您通常可以将它们分离为单独的窗口(如图1-1所示)，这通常非常方便。
 
-js7e 0101
-Figure 1-1. The JavaScript console in Firefox’s Developer Tools
+<Figures figure="1-1">The JavaScript console in Firefox’s Developer Tools</Figures>
 
 Another way to try out JavaScript code is to download and install Node from https://nodejs.org. Once Node is installed on your system, you can simply open a Terminal window and type node to begin an interactive JavaScript session like this one:
 
