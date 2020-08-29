@@ -154,8 +154,8 @@ let o = new F();      // Create an object o of class F
 o.constructor === F   // => true: the constructor property specifies the class
 Figure 9-1 illustrates this relationship between the constructor function, its prototype object, the back reference from the prototype to the constructor, and the instances created with the constructor.
 
-js7e 0901
-Figure 9-1. A constructor function, its prototype, and instances
+<Figures figure="9-1">A constructor function, its prototype, and instances</Figures>
+
 Notice that Figure 9-1 uses our Range() constructor as an example. In fact, however, the Range class defined in Example 9-2 overwrites the predefined Range.prototype object with an object of its own. And the new prototype object it defines does not have a constructor property. So instances of the Range class, as defined, do not have a constructor property. We can remedy this problem by explicitly adding a constructor to the prototype:
 
 Range.prototype = {
